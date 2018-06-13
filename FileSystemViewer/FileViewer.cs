@@ -8,6 +8,7 @@ namespace FileSystemViewer
     {
         private const int DriveNameLength_ = 3;
         private List<string> folders = new List<string>();
+        private string lastDriveName;
         private List<string> openFolders = new List<string>();
         private int positionInFolders = 0;
 
@@ -20,11 +21,14 @@ namespace FileSystemViewer
             {
                 folders.Add(drive.Name);
             }
+            lastDriveName = drives[drives.Length - 1].Name;
         }
 
         public int DriveNameLength => DriveNameLength_;
 
         public List<string> Folders => folders;
+
+        public string LastDriveName => lastDriveName;
 
         public List<string> OpenFolders => openFolders;
 
@@ -205,8 +209,7 @@ namespace FileSystemViewer
             // Accentuation bar
             FormatPath(folders[positionInFolders], positionInFolders, ConsoleColor.DarkGray);
         }
-
-        // прокурутка не такая, как требуется, но думаю над вопросом
+        // прокрутка не такая, как требуется, но думаю над вопросом
         private void Scroll()
         {
             Console.Clear();
