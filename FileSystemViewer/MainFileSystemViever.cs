@@ -1,11 +1,35 @@
-﻿namespace FileSystemViewer
+﻿using System;
+using System.IO;
+
+namespace FileSystemViewer
 {
     internal class MainFileSystemViever
     {
-        public static void Main(string[] arguments)
+        public static void Main()
         {
-            FileViewer fileViewer = new FileViewer();
-            FileViewer.Process(fileViewer);
+            Console.Title = "FileSystemViewer";
+            Program viewer = new Program();
+            KeyAssign keys = new KeyAssign(viewer);
+            Run(keys);
+        }
+        public static void Run(KeyAssign keys)
+        {
+            try
+            {
+                while (true)
+                {
+                    keys.Viewer.WriteScreen();
+                    keys.Read(Console.ReadKey().Key);
+                }
+            }
+            catch (IOException)
+            {
+                Run(keys);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Run(keys);
+            }
         }
     }
 }

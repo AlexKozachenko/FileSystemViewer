@@ -42,17 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bytes.cs" />
-    <Compile Include="FileViewer.cs" />
-    <Compile Include="ICommand.cs" />
-    <Compile Include="Key.cs" />
-    <Compile Include="KeyBoard.cs" />
-    <Compile Include="KeyRead.cs" />
-    <Compile Include="Collapse.cs" />
+    <Compile Include="Command\AssignedKey.cs" />
+    <Compile Include="Command\ConcreteCommands\Close.cs" />
+    <Compile Include="Command\ConcreteCommands\DefaultAction.cs" />
+    <Compile Include="Command\ConcreteCommands\Expand.cs" />
+    <Compile Include="Command\ConcreteCommands\MoveDown.cs" />
+    <Compile Include="Command\ConcreteCommands\MoveUp.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\KeyAssign.cs" />
+    <Compile Include="Folder\DefaultFolder.cs" />
+    <Compile Include="Folder\DriveName.cs" />
+    <Compile Include="Folder\FileName.cs" />
+    <Compile Include="Folder\FolderName.cs" />
+    <Compile Include="Folder\Root.cs" />
     <Compile Include="MainFileSystemViever.cs" />
-    <Compile Include="MoveDown.cs" />
-    <Compile Include="Expand.cs" />
-    <Compile Include="MoveUp.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ProgramLogic%28Procedure Edit%29.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
