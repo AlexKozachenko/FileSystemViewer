@@ -7,11 +7,16 @@ namespace FileSystemViewer
     {
         public FolderName(string fullPath) : base(fullPath)
         {
-            Color = ConsoleColor.Yellow;
+            GetColor();
             GetDeep();
             GetOffset();
             Name = new DirectoryInfo(fullPath).Name;
             FormatName();
+        }
+
+        protected virtual void GetColor()
+        {
+            Color = ConsoleColor.Yellow;
         }
         protected void GetDeep()
         {

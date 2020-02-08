@@ -13,7 +13,6 @@ namespace FileSystemViewer
         }
         public FileName(string fullPath) : base(fullPath)
         {
-            Color = ConsoleColor.Cyan;
             IsEmpty = true;
         }
         protected override void FormatName()
@@ -27,6 +26,10 @@ namespace FileSystemViewer
             {
                 Name = Name + Size();
             }
+        }
+        protected override void GetColor()
+        {
+            Color = ConsoleColor.Cyan;
         }
         private string Size()
         {
