@@ -21,7 +21,7 @@ namespace FileSystemViewer
         public DefaultFolder(string fullPath)
         {
             FullPath = fullPath;
-            //по умолчанию папка cчитается не пустой, пока не пройдет проверку при раскрытии в методе Expand
+            //по умолчанию папка cчитается не пустой, пока не пройдет проверку при раскрытии в методе Open
             IsEmpty = false;
             IsOpen = false;
             IsLastChildDir = false;
