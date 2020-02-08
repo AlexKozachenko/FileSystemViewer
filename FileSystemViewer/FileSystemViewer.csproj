@@ -45,7 +45,7 @@
     <Compile Include="Command\AssignedKey.cs" />
     <Compile Include="Command\ConcreteCommands\Close.cs" />
     <Compile Include="Command\ConcreteCommands\DefaultAction.cs" />
-    <Compile Include="Command\ConcreteCommands\Expand.cs" />
+    <Compile Include="Command\ConcreteCommands\Open.cs" />
     <Compile Include="Command\ConcreteCommands\MoveDown.cs" />
     <Compile Include="Command\ConcreteCommands\MoveUp.cs" />
     <Compile Include="Command\ICommand.cs" />
