@@ -46,7 +46,7 @@ namespace FileSystemViewer
                 i = i + Step;
             }
             //если this - файл, окончание - 2 пробела
-            if (GetType().ToString() == "FileSystemViewer.FileName")
+            if (Color == ConsoleColor.Cyan)
             {
                 Prefix = prePrefix + "  ";
             }

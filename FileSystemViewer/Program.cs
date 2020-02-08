@@ -7,7 +7,7 @@ namespace FileSystemViewer
     internal class Program
     {
         private int cursorPosition = 0;
-        private List<DefaultFolder> children = new List<DefaultFolder>();
+        private List<DefaultFolder> childrenTemporary = new List<DefaultFolder>();
         private List<DefaultFolder> foldersUnderTop = new List<DefaultFolder>()
             {
                 new Root()
@@ -33,14 +33,13 @@ namespace FileSystemViewer
         }
         private void GetChildren()
         {
-            children.Clear();
-            if (Current.GetType().ToString() == "FileSystemViewer.Root")
+            if (Current.FullPath == "")
             {
                 foreach (DriveInfo drive in DriveInfo.GetDrives())
                 {
-                    children.Add(new DriveName(drive.Name));
+                    childrenTemporary.Add(new DriveName(drive.Name));
                 }
-                children[children.Count - 1].IsLastChildDir = true;
+                childrenTemporary[childrenTemporary.Count - 1].IsLastChildDir = true;
             }
             else
             {
@@ -48,15 +47,15 @@ namespace FileSystemViewer
                 {
                     foreach (string directory in Directory.GetDirectories(Current.FullPath))
                     {
-                        children.Add(new FolderName(directory));
+                        childrenTemporary.Add(new FolderName(directory));
                     }
-                    if (children.Count > 0)
+                    if (childrenTemporary.Count > 0)
                     {
-                        children[children.Count - 1].IsLastChildDir = true;
+                        childrenTemporary[childrenTemporary.Count - 1].IsLastChildDir = true;
                     }
                     foreach (string file in Directory.GetFiles(Current.FullPath))
                     {
-                        children.Add(new FileName(file));
+                        childrenTemporary.Add(new FileName(file));
                     }
                 }
             }
@@ -101,11 +100,12 @@ namespace FileSystemViewer
             if (!Current.IsOpen && !Current.IsEmpty)
             {
                 GetChildren();
-                if (children.Count > 0)
+                if (childrenTemporary.Count > 0)
                 {
                     Current.IsOpen = true;
-                    children.ForEach(child => child.FormatPrefix(Current.Prefix));
-                    foldersUnderTop.InsertRange(cursorPosition + next, children);
+                    childrenTemporary.ForEach(child => child.FormatPrefix(Current.Prefix));
+                    foldersUnderTop.InsertRange(cursorPosition + next, childrenTemporary);
+                    childrenTemporary.Clear();
                 }
                 else
                 {
