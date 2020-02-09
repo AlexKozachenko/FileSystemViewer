@@ -13,14 +13,37 @@ namespace FileSystemViewer
                 new Root("")
             };
         private Stack<DefaultFolder> foldersOverTop = new Stack<DefaultFolder>();
-        private int lastRowIndex = Console.WindowHeight - 1;
+        private readonly int lastRowIndex = Console.WindowHeight - 1;
         public Program()
         {
             Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
             Console.CursorVisible = false;
             Open();
         }
-        private DefaultFolder Current => foldersUnderTop[cursorPosition];
+        private DefaultFolder Current => foldersUnderTop[CursorPosition];
+        private int CursorPosition
+        {
+            get
+            {
+                return cursorPosition;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    value = 0;
+                }
+                if (value > LastFolderIndex)
+                {
+                    value = LastFolderIndex;
+                }
+                if (value > lastRowIndex)
+                {
+                    value = lastRowIndex;
+                }
+                cursorPosition = value;
+            }
+        }
         private int LastFolderIndex => foldersUnderTop.Count - 1;
         public void Close()
         {
@@ -62,32 +85,26 @@ namespace FileSystemViewer
         }
         public void MoveDown()
         {
-            ++cursorPosition;
-            if (cursorPosition > LastFolderIndex
+            ++CursorPosition;
+            //протяжка вниз до последней строки, если последняя папка закрылась посреди окна
+            if (CursorPosition == LastFolderIndex
                 && foldersUnderTop.Count < Console.WindowHeight
                 && foldersOverTop.Count > 0)
             {
                 foldersUnderTop.Insert(0, foldersOverTop.Pop());
+                ++CursorPosition;
             }
-            if (cursorPosition > LastFolderIndex)
+            if (CursorPosition == lastRowIndex 
+                && lastRowIndex < LastFolderIndex)
             {
-                cursorPosition = LastFolderIndex;
-            }
-            if (cursorPosition > lastRowIndex)
-            {
-                cursorPosition = lastRowIndex;
                 foldersOverTop.Push(foldersUnderTop[0]);
                 foldersUnderTop.RemoveAt(0);
             }
         }
         public void MoveUp()
         {
-            --cursorPosition;
-            if (cursorPosition < 0)
-            {
-                cursorPosition = 0;
-            }
-            if (foldersOverTop.Count > 0 && cursorPosition == 0)
+            --CursorPosition;
+            if (foldersOverTop.Count > 0 && CursorPosition == 0)
             {
                 foldersUnderTop.Insert(0, foldersOverTop.Pop());
             }
@@ -104,7 +121,7 @@ namespace FileSystemViewer
                 {
                     Current.IsOpen = true;
                     childrenTemporary.ForEach(child => child.FormatPrefix(Current.Prefix));
-                    foldersUnderTop.InsertRange(cursorPosition + next, childrenTemporary);
+                    foldersUnderTop.InsertRange(CursorPosition + next, childrenTemporary);
                     childrenTemporary.Clear();
                 }
                 else
@@ -112,7 +129,7 @@ namespace FileSystemViewer
                     Current.IsEmpty = true;
                 }
             }
-            if (cursorPosition == lastRowIndex
+            if (CursorPosition == lastRowIndex
                 && Current.IsOpen)
             {
                 MoveDown();
@@ -130,7 +147,7 @@ namespace FileSystemViewer
                 Console.ForegroundColor = foldersUnderTop[i].Color;
                 Console.Write(foldersUnderTop[i].Name);
             }
-            Console.SetCursorPosition(Current.Offset, cursorPosition);
+            Console.SetCursorPosition(Current.Offset, CursorPosition);
             Console.BackgroundColor = ConsoleColor.DarkGray;
             Console.ForegroundColor = Current.Color;
             Console.Write(Current.Name);
