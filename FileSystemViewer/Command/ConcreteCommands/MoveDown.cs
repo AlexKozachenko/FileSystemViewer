@@ -1,11 +1,11 @@
 ﻿namespace FileSystemViewer
 {
-    internal class MoveDown : DefaultAction, ICommand
+    internal class MoveDown : Command
     {
         public MoveDown(Program viewer) : base(viewer)
         {
         }
-        public void Execute()
+        public override void Execute()
         {
             Viewer.MoveDown();
         }

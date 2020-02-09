@@ -44,11 +44,10 @@
   <ItemGroup>
     <Compile Include="Command\AssignedKey.cs" />
     <Compile Include="Command\ConcreteCommands\Close.cs" />
-    <Compile Include="Command\ConcreteCommands\DefaultAction.cs" />
+    <Compile Include="Command\Command.cs" />
     <Compile Include="Command\ConcreteCommands\Open.cs" />
     <Compile Include="Command\ConcreteCommands\MoveDown.cs" />
     <Compile Include="Command\ConcreteCommands\MoveUp.cs" />
-    <Compile Include="Command\ICommand.cs" />
     <Compile Include="Command\KeyAssign.cs" />
     <Compile Include="Folder\DefaultFolder.cs" />
     <Compile Include="Folder\DriveName.cs" />

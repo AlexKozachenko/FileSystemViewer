@@ -1,11 +1,11 @@
 ﻿namespace FileSystemViewer
 {
-    internal class Open : DefaultAction, ICommand
+    internal class Open : Command
     {
         public Open(Program viewer) : base(viewer)
         {
         }
-        public void Execute()
+        public override void Execute()
         {
             Viewer.Open();
         }

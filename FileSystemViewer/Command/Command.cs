@@ -1,11 +1,12 @@
 ﻿namespace FileSystemViewer
 {
-    internal abstract class DefaultAction
+    internal abstract class Command
     {
         public Program Viewer { get; }
-        public DefaultAction(Program viewer)
+        public Command(Program viewer)
         {
             Viewer = viewer;
         }
+        public abstract void Execute();
     }
 }
