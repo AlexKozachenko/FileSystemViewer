@@ -101,7 +101,7 @@ namespace FileSystemViewer
         }
         public void Open()
         {
-            const int next = 1;
+            int nextPosition = CursorPosition + 1;
             //первый раз проверяется любая папка (не пустая по умолчанию), т.к. неизвестно, пустая она или нет,
             //если пустая, при следующем раскрытии процесс получения вложенных папок отменяется
             if (!Current.IsOpen && !Current.IsEmpty)
@@ -111,7 +111,7 @@ namespace FileSystemViewer
                 {
                     Current.IsOpen = true;
                     childrenTemporary.ForEach(child => child.FormatPrefix(Current.Prefix));
-                    foldersUnderTop.InsertRange(CursorPosition + next, childrenTemporary);
+                    foldersUnderTop.InsertRange(nextPosition, childrenTemporary);
                     childrenTemporary.Clear();
                 }
                 else
@@ -119,8 +119,8 @@ namespace FileSystemViewer
                     Current.IsEmpty = true;
                 }
             }
-            if (CursorPosition == lastRowIndex
-                && Current.IsOpen)
+            //при открытии папки на последней строке список скроллится на 1 вниз
+            if (CursorPosition == lastRowIndex && Current.IsOpen)
             {
                 MoveDown();
             }
