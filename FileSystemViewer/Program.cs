@@ -10,7 +10,7 @@ namespace FileSystemViewer
         private List<DefaultFolder> childrenTemporary = new List<DefaultFolder>();
         private List<DefaultFolder> foldersUnderTop = new List<DefaultFolder>()
             {
-                new Root()
+                new Root("")
             };
         private Stack<DefaultFolder> foldersOverTop = new Stack<DefaultFolder>();
         private int lastRowIndex = Console.WindowHeight - 1;

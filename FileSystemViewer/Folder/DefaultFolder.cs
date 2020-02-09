@@ -15,9 +15,6 @@ namespace FileSystemViewer
         public int Offset { get; set; }
         public string Prefix { get; set; }
         public int Step => step;
-        public DefaultFolder()
-        {
-        }
         public DefaultFolder(string fullPath)
         {
             FullPath = fullPath;
