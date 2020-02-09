@@ -31,15 +31,23 @@ namespace FileSystemViewer
             {
                 if (value < 0)
                 {
+                    PushUnderTop();
                     value = 0;
                 }
                 if (value > LastFolderIndex)
                 {
+                    //протяжка вниз до последней строки, если последняя папка закрылась посреди окна
+                    if (LastFolderIndex < lastRowIndex)
+                    {
+                        PushUnderTop();
+                    }
                     value = LastFolderIndex;
                 }
                 if (value > lastRowIndex)
                 {
                     value = lastRowIndex;
+                    foldersOverTop.Push(foldersUnderTop[0]);
+                    foldersUnderTop.RemoveAt(0);
                 }
                 cursorPosition = value;
             }
@@ -86,28 +94,10 @@ namespace FileSystemViewer
         public void MoveDown()
         {
             ++CursorPosition;
-            //протяжка вниз до последней строки, если последняя папка закрылась посреди окна
-            if (CursorPosition == LastFolderIndex
-                && foldersUnderTop.Count < Console.WindowHeight
-                && foldersOverTop.Count > 0)
-            {
-                foldersUnderTop.Insert(0, foldersOverTop.Pop());
-                ++CursorPosition;
-            }
-            if (CursorPosition == lastRowIndex 
-                && lastRowIndex < LastFolderIndex)
-            {
-                foldersOverTop.Push(foldersUnderTop[0]);
-                foldersUnderTop.RemoveAt(0);
-            }
         }
         public void MoveUp()
         {
             --CursorPosition;
-            if (foldersOverTop.Count > 0 && CursorPosition == 0)
-            {
-                foldersUnderTop.Insert(0, foldersOverTop.Pop());
-            }
         }
         public void Open()
         {
@@ -135,11 +125,18 @@ namespace FileSystemViewer
                 MoveDown();
             }
         }
+        private void PushUnderTop()
+        {
+            if (foldersOverTop.Count > 0)
+            {
+                foldersUnderTop.Insert(0, foldersOverTop.Pop());
+            }
+        }
         public void WriteScreen()
         {
             Console.ResetColor();
             Console.Clear();
-            for (int i = 0; i < foldersUnderTop.Count && i < Console.WindowHeight; ++i)
+            for (int i = 0; i <= LastFolderIndex && i <= lastRowIndex; ++i)
             {
                 Console.SetCursorPosition(0, i);
                 Console.ForegroundColor = ConsoleColor.DarkGray;
