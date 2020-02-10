@@ -27,6 +27,10 @@ namespace FileSystemViewer
                 Name = Name + Size();
             }
         }
+        public override void FormatPrefix(string parentPrefix)
+        {
+            Prefix = PrePrefix(parentPrefix) + "  ";
+        }
         protected override void GetColor()
         {
             Color = ConsoleColor.Cyan;

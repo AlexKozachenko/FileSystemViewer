@@ -11,5 +11,10 @@ namespace FileSystemViewer
             Name = "ThisPC";
             Offset = 0;
         }
+
+        public override void FormatPrefix(string parentPrePrefix)
+        {
+            Prefix = "";
+        }
     }
 }

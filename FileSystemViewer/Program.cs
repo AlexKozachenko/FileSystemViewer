@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.IO;
 
 namespace FileSystemViewer
 {
-    internal class Program
+     class Program
     {
         private int cursorPosition = 0;
-        private List<DefaultFolder> childrenTemporary = new List<DefaultFolder>();
+        private Collection<DefaultFolder> childrenTemporary = new Collection<DefaultFolder>();
         private List<DefaultFolder> foldersUnderTop = new List<DefaultFolder>()
             {
                 new Root("")
@@ -31,7 +32,7 @@ namespace FileSystemViewer
             {
                 if (value < 0)
                 {
-                    PushUnderTop();
+                    PopInTop();
                     value = 0;
                 }
                 if (value > LastFolderIndex)
@@ -39,15 +40,14 @@ namespace FileSystemViewer
                     //протяжка вниз до последней строки, если последняя папка закрылась посреди окна
                     if (LastFolderIndex < lastRowIndex)
                     {
-                        PushUnderTop();
+                        PopInTop();
                     }
                     value = LastFolderIndex;
                 }
                 if (value > lastRowIndex)
                 {
+                    PushTop();
                     value = lastRowIndex;
-                    foldersOverTop.Push(foldersUnderTop[0]);
-                    foldersUnderTop.RemoveAt(0);
                 }
                 cursorPosition = value;
             }
@@ -88,7 +88,12 @@ namespace FileSystemViewer
                     {
                         childrenTemporary.Add(new FileName(file));
                     }
+                    
                 }
+            }
+            foreach (DefaultFolder child in childrenTemporary)
+            {
+                child.FormatPrefix(Current.Prefix);
             }
         }
         public void MoveDown()
@@ -109,10 +114,9 @@ namespace FileSystemViewer
                 GetChildren();
                 if (childrenTemporary.Count > 0)
                 {
-                    Current.IsOpen = true;
-                    childrenTemporary.ForEach(child => child.FormatPrefix(Current.Prefix));
                     foldersUnderTop.InsertRange(nextPosition, childrenTemporary);
                     childrenTemporary.Clear();
+                    Current.IsOpen = true;
                 }
                 else
                 {
@@ -122,15 +126,20 @@ namespace FileSystemViewer
             //при открытии папки на последней строке список скроллится на 1 вниз
             if (CursorPosition == lastRowIndex && Current.IsOpen)
             {
-                MoveDown();
+                ++CursorPosition;
             }
         }
-        private void PushUnderTop()
+        private void PopInTop()
         {
             if (foldersOverTop.Count > 0)
             {
                 foldersUnderTop.Insert(0, foldersOverTop.Pop());
             }
+        }
+        private void PushTop()
+        {
+            foldersOverTop.Push(foldersUnderTop[0]);
+            foldersUnderTop.RemoveAt(0);
         }
         public void WriteScreen()
         {
