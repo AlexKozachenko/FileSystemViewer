@@ -27,9 +27,9 @@ namespace FileSystemViewer
                 Name = Name + Size();
             }
         }
-        public override void FormatPrefix(string parentPrefix)
+        public override void FormatPrefix()
         {
-            Prefix = PrePrefix(parentPrefix) + "  ";
+            Prefix = PrePrefix + "  ";
         }
         protected override void GetColor()
         {

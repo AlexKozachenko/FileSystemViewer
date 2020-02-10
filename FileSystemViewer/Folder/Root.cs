@@ -7,14 +7,7 @@ namespace FileSystemViewer
         public Root(string fullPath) : base(fullPath)
         {
             Color = ConsoleColor.DarkBlue;
-            Deep = 0;
             Name = "ThisPC";
-            Offset = 0;
-        }
-
-        public override void FormatPrefix(string parentPrePrefix)
-        {
-            Prefix = "";
         }
     }
 }

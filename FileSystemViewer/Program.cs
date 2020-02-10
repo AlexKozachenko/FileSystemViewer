@@ -88,12 +88,15 @@ namespace FileSystemViewer
                     {
                         childrenTemporary.Add(new FileName(file));
                     }
-                    
+                    foreach (FolderName child in childrenTemporary)
+                    {
+                        child.FormatPrePrefix(Current.Prefix);
+                    }
                 }
             }
-            foreach (DefaultFolder child in childrenTemporary)
+            foreach (DriveName child in childrenTemporary)
             {
-                child.FormatPrefix(Current.Prefix);
+                child.FormatPrefix();
             }
         }
         public void MoveDown()
