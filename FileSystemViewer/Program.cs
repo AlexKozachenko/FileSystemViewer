@@ -8,12 +8,12 @@ namespace FileSystemViewer
      class Program
     {
         private int cursorPosition = 0;
-        private Collection<DefaultFolder> childrenTemporary = new Collection<DefaultFolder>();
+        private Collection<DriveName> childrenTemporary = new Collection<DriveName>();
         private List<DefaultFolder> foldersUnderTop = new List<DefaultFolder>()
-            {
-                new Root("")
-            };
-        private Stack<DefaultFolder> foldersOverTop = new Stack<DefaultFolder>();
+        {
+            new DefaultFolder()
+        };
+    private Stack<DefaultFolder> foldersOverTop = new Stack<DefaultFolder>();
         private readonly int lastRowIndex = Console.WindowHeight - 1;
         public Program()
         {

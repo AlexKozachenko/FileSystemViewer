@@ -11,6 +11,7 @@ namespace FileSystemViewer
             Name = FullPath;
             Offset = Step;
         }
+        public bool IsLastChildDir { get; set; }
         public virtual void FormatPrefix()
         {
             if (IsLastChildDir)
