@@ -14,23 +14,6 @@ namespace FileSystemViewer
             FormatName();
         }
         protected string PrePrefix { get; set; } = "";
-        protected override void GetColor()
-        {
-            Color = ConsoleColor.Yellow;
-        }
-        protected void GetDeep()
-        {
-            const int drivesDeep = 1;
-            int slashesInPath = drivesDeep;
-            foreach (char character in FullPath)
-            {
-                if (character == '\\')
-                {
-                    slashesInPath++;
-                }
-            }
-            Deep = slashesInPath;
-        }
         protected virtual void FormatName()
         {
             int cut = Console.WindowWidth - Offset - "...".Length - 1;
@@ -39,7 +22,7 @@ namespace FileSystemViewer
                 Name = Name.Remove(cut) + "...";
             }
         }
-        public  void FormatPrePrefix(string parentPrefix)
+        public void FormatPrePrefix(string parentPrefix)
         {
             int i = 0;
             while (PrePrefix.Length < Offset - Step)
@@ -68,6 +51,23 @@ namespace FileSystemViewer
             {
                 Prefix = PrePrefix + (char)0x251C + (char)0x2500;
             }
+        }
+        protected override void GetColor()
+        {
+            Color = ConsoleColor.Yellow;
+        }
+        protected void GetDeep()
+        {
+            const int drivesDeep = 1;
+            int slashesInPath = drivesDeep;
+            foreach (char character in FullPath)
+            {
+                if (character == '\\')
+                {
+                    slashesInPath++;
+                }
+            }
+            Deep = slashesInPath;
         }
         protected void GetOffset()
         {
