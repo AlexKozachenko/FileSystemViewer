@@ -53,6 +53,7 @@
     <Compile Include="Folder\DriveName.cs" />
     <Compile Include="Folder\FileName.cs" />
     <Compile Include="Folder\FolderName.cs" />
+    <Compile Include="Folder\Root.cs" />
     <Compile Include="MainFileSystemViever.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramLogic%28Procedure Edit%29.cs" />

@@ -5,15 +5,15 @@ using System.IO;
 
 namespace FileSystemViewer
 {
-     class Program
+    class Program
     {
         private int cursorPosition = 0;
         private Collection<DriveName> childrenTemporary = new Collection<DriveName>();
         private List<DefaultFolder> foldersUnderTop = new List<DefaultFolder>()
         {
-            new DefaultFolder()
+            new Root()
         };
-    private Stack<DefaultFolder> foldersOverTop = new Stack<DefaultFolder>();
+        private Stack<DefaultFolder> foldersOverTop = new Stack<DefaultFolder>();
         private readonly int lastRowIndex = Console.WindowHeight - 1;
         public Program()
         {
@@ -64,7 +64,7 @@ namespace FileSystemViewer
         }
         private void GetChildren()
         {
-            if (Current.FullPath == "")
+            if (Current.Deep == 0)
             {
                 foreach (DriveInfo drive in DriveInfo.GetDrives())
                 {
@@ -151,7 +151,7 @@ namespace FileSystemViewer
             for (int i = 0; i <= LastFolderIndex && i <= lastRowIndex; ++i)
             {
                 Console.SetCursorPosition(0, i);
-                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.ForegroundColor = foldersUnderTop[i].PrefixColor;
                 Console.Write(foldersUnderTop[i].Prefix);
                 Console.ForegroundColor = foldersUnderTop[i].Color;
                 Console.Write(foldersUnderTop[i].Name);

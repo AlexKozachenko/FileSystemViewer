@@ -15,7 +15,8 @@ namespace FileSystemViewer
         {
             IsEmpty = true;
         }
-        protected override void FormatName()
+        public override ConsoleColor Color { get; } = ConsoleColor.Cyan;
+        protected override void CutName()
         {
             int cut = Console.WindowWidth - Offset - Size().Length - "...".Length - 1;
             if (Name.Length > cut)
@@ -30,10 +31,6 @@ namespace FileSystemViewer
         public override void FormatPrefix()
         {
             Prefix = PrePrefix + "  ";
-        }
-        protected override void GetColor()
-        {
-            Color = ConsoleColor.Cyan;
         }
         private string Size()
         {

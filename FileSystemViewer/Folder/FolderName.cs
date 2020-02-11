@@ -7,14 +7,10 @@ namespace FileSystemViewer
     {
         public FolderName(string fullPath) : base(fullPath)
         {
-            GetColor();
-            GetDeep();
-            GetOffset();
-            Name = new DirectoryInfo(fullPath).Name;
-            FormatName();
+            CutName();
         }
-        protected string PrePrefix { get; set; } = "";
-        protected virtual void FormatName()
+        public override ConsoleColor Color { get; } = ConsoleColor.Yellow;
+        protected virtual void CutName()
         {
             int cut = Console.WindowWidth - Offset - "...".Length - 1;
             if (Name.Length > cut)
@@ -24,8 +20,7 @@ namespace FileSystemViewer
         }
         public void FormatPrePrefix(string parentPrefix)
         {
-            int i = 0;
-            while (PrePrefix.Length < Offset - Step)
+            for (int i = 0; PrePrefix.Length < Offset - Step; i = i + Step)
             {
                 string character = " ";
                 //если символ в префиксе родителя ветвление или вертикальная черта, 
@@ -38,25 +33,9 @@ namespace FileSystemViewer
                 }
                 //сборка предварительного префикса
                 PrePrefix = PrePrefix + character + " ";
-                i = i + Step;
             }
         }
-        public override void FormatPrefix()
-        {
-            if (IsLastChildDir)
-            {
-                Prefix = PrePrefix + (char)0x2514 + (char)0x2500;
-            }
-            else
-            {
-                Prefix = PrePrefix + (char)0x251C + (char)0x2500;
-            }
-        }
-        protected override void GetColor()
-        {
-            Color = ConsoleColor.Yellow;
-        }
-        protected void GetDeep()
+        protected override void GetDeep()
         {
             const int drivesDeep = 1;
             int slashesInPath = drivesDeep;
@@ -69,9 +48,9 @@ namespace FileSystemViewer
             }
             Deep = slashesInPath;
         }
-        protected void GetOffset()
+        protected override void GetName()
         {
-            Offset = Deep * Step;
+            Name = new DirectoryInfo(FullPath).Name;
         }
     }
 }

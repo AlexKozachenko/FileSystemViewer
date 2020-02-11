@@ -2,7 +2,7 @@
 
 namespace FileSystemViewer
 {
-    internal class DefaultFolder
+    internal abstract class DefaultFolder
     {
         public DefaultFolder()
         {
@@ -11,16 +11,15 @@ namespace FileSystemViewer
         {
             FullPath = fullPath;
         }
-        public ConsoleColor Color { get; set; } = ConsoleColor.DarkBlue;
+        public abstract ConsoleColor Color { get; }
         public int Deep { get; set; }
-        public string FullPath { get; set; } = "";
+        public string FullPath { get; set; } 
         //по умолчанию папка cчитается не пустой, пока не пройдет проверку при раскрытии в методе Open
         public bool IsEmpty { get; set; }
-        //public bool IsLastChildDir { get; set; } 
-        public bool IsOpen { get; set; } 
-        public string Name { get; set; } = "ThisPC";
+        public bool IsOpen { get; set; }
+        public virtual string Name { get; set; } 
         public int Offset { get; set; }
         public string Prefix { get; set; }
-        protected int Step { get; } = 2;
+        public virtual ConsoleColor PrefixColor { get; }
     }
 }

@@ -6,26 +6,37 @@ namespace FileSystemViewer
     {
         public DriveName(string fullPath) : base(fullPath)
         {
-            GetColor();
-            Deep = 1;
-            Name = FullPath;
-            Offset = Step;
+            GetDeep();
+            GetOffset();
+            GetName();
         }
+        public override ConsoleColor Color { get; } = ConsoleColor.Green;
         public bool IsLastChildDir { get; set; }
+        public override ConsoleColor PrefixColor { get; } = ConsoleColor.DarkGray;
+        protected string PrePrefix { get; set; } = "";
+        protected int Step { get; } = 2;
         public virtual void FormatPrefix()
         {
             if (IsLastChildDir)
             {
-                Prefix = ((char)0x2514).ToString() + (char)0x2500;
+                Prefix = PrePrefix + (char)0x2514 + (char)0x2500;
             }
             else
             {
-                Prefix = ((char)0x251C).ToString() + (char)0x2500;
+                Prefix = PrePrefix + (char)0x251C + (char)0x2500;
             }
         }
-        protected virtual void GetColor()
+        protected virtual void GetDeep()
         {
-            Color = ConsoleColor.Green;
+            Deep = 1;
+        }
+        protected virtual void GetName()
+        {
+            Name = FullPath;
+        }
+        protected void GetOffset()
+        {
+            Offset = Deep * Step;
         }
     }
 }
