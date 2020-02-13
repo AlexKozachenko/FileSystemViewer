@@ -5,7 +5,7 @@ using System.IO;
 
 namespace FileSystemViewer
 {
-    class Program
+    internal class Program
     {
         private int cursorPosition = 0;
         private Collection<DriveName> childrenTemporary = new Collection<DriveName>();
@@ -62,6 +62,13 @@ namespace FileSystemViewer
                 Current.IsOpen = false;
             }
         }
+        private void FinalizeContainers()
+        {
+            if (childrenTemporary.Count > 0)
+            {
+                childrenTemporary[childrenTemporary.Count - 1].IsLastContainer = true;
+            }
+        }
         private void GetChildren()
         {
             if (Current.Deep == 0)
@@ -70,7 +77,7 @@ namespace FileSystemViewer
                 {
                     childrenTemporary.Add(new DriveName(drive.Name));
                 }
-                childrenTemporary[childrenTemporary.Count - 1].IsLastChildDir = true;
+                FinalizeContainers();
             }
             else
             {
@@ -78,19 +85,12 @@ namespace FileSystemViewer
                 {
                     foreach (string directory in Directory.GetDirectories(Current.FullPath))
                     {
-                        childrenTemporary.Add(new FolderName(directory));
+                        childrenTemporary.Add(new FolderName(directory, Current.Prefix));
                     }
-                    if (childrenTemporary.Count > 0)
-                    {
-                        childrenTemporary[childrenTemporary.Count - 1].IsLastChildDir = true;
-                    }
+                    FinalizeContainers();
                     foreach (string file in Directory.GetFiles(Current.FullPath))
                     {
-                        childrenTemporary.Add(new FileName(file));
-                    }
-                    foreach (FolderName child in childrenTemporary)
-                    {
-                        child.FormatPrePrefix(Current.Prefix);
+                        childrenTemporary.Add(new FileName(file, Current.Prefix));
                     }
                 }
             }
@@ -144,22 +144,27 @@ namespace FileSystemViewer
             foldersOverTop.Push(foldersUnderTop[0]);
             foldersUnderTop.RemoveAt(0);
         }
+
+        public void Write(ConsoleColor color, string line)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(line);
+        }
+
         public void WriteScreen()
         {
             Console.ResetColor();
             Console.Clear();
-            for (int i = 0; i <= LastFolderIndex && i <= lastRowIndex; ++i)
+            const ConsoleColor ServiceColor = ConsoleColor.DarkGray;
+            for (int lineIndex = 0; lineIndex <= LastFolderIndex && lineIndex <= lastRowIndex; ++lineIndex)
             {
-                Console.SetCursorPosition(0, i);
-                Console.ForegroundColor = foldersUnderTop[i].PrefixColor;
-                Console.Write(foldersUnderTop[i].Prefix);
-                Console.ForegroundColor = foldersUnderTop[i].Color;
-                Console.Write(foldersUnderTop[i].Name);
+                Console.SetCursorPosition(0, lineIndex);
+                Write(ServiceColor, foldersUnderTop[lineIndex].Prefix);
+                Write(foldersUnderTop[lineIndex].Color, foldersUnderTop[lineIndex].Name);
             }
             Console.SetCursorPosition(Current.Offset, CursorPosition);
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.ForegroundColor = Current.Color;
-            Console.Write(Current.Name);
+            Console.BackgroundColor = ServiceColor;
+            Write(Current.Color, Current.Name);
         }
     }
 }

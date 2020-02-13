@@ -11,7 +11,7 @@ namespace FileSystemViewer
             MB = 1024 * 1024,
             GB = 1024 * 1024 * 1024
         }
-        public FileName(string fullPath) : base(fullPath)
+        public FileName(string fullPath, string parentPrefix) : base(fullPath, parentPrefix)
         {
             IsEmpty = true;
         }

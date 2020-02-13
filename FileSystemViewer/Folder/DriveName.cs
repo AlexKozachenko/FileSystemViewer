@@ -4,20 +4,19 @@ namespace FileSystemViewer
 {
     internal class DriveName : DefaultFolder
     {
+        protected const int Step = 2;
         public DriveName(string fullPath) : base(fullPath)
         {
-            GetDeep();
-            GetOffset();
-            GetName();
         }
         public override ConsoleColor Color { get; } = ConsoleColor.Green;
-        public bool IsLastChildDir { get; set; }
-        public override ConsoleColor PrefixColor { get; } = ConsoleColor.DarkGray;
+        public override int Deep => 1;
+        public bool IsLastContainer { get; set; }
+        public override string Name => FullPath;
+        public override int Offset => Deep * Step;
         protected string PrePrefix { get; set; } = "";
-        protected int Step { get; } = 2;
         public virtual void FormatPrefix()
         {
-            if (IsLastChildDir)
+            if (IsLastContainer)
             {
                 Prefix = PrePrefix + (char)0x2514 + (char)0x2500;
             }
@@ -25,18 +24,6 @@ namespace FileSystemViewer
             {
                 Prefix = PrePrefix + (char)0x251C + (char)0x2500;
             }
-        }
-        protected virtual void GetDeep()
-        {
-            Deep = 1;
-        }
-        protected virtual void GetName()
-        {
-            Name = FullPath;
-        }
-        protected void GetOffset()
-        {
-            Offset = Deep * Step;
         }
     }
 }
