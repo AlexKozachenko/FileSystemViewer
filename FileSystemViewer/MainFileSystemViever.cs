@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace FileSystemViewer
 {
@@ -10,26 +9,7 @@ namespace FileSystemViewer
             Console.Title = "FileSystemViever";
             Program viewer = new Program();
             KeyAssign keys = new KeyAssign(viewer);
-            Run(keys);
-        }
-        public static void Run(KeyAssign keys)
-        {
-            try
-            {
-                while (true)
-                {
-                    keys.Viewer.WriteScreen();
-                    keys.Read(Console.ReadKey().Key);
-                }
-            }
-            catch (IOException)
-            {
-                Run(keys);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Run(keys);
-            }
+            viewer.Run(keys);
         }
     }
 }

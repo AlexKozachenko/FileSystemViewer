@@ -8,13 +8,13 @@ namespace FileSystemViewer
         public FolderName(string fullPath, string parentPrefix) : base(fullPath)
         {
             FormatPrefix(parentPrefix);
-            CutName();
         }
         public override ConsoleColor Color => ConsoleColor.Yellow;
-
+        public override int Depth => GetDepth();
+        protected int Width => Console.WindowWidth;
         protected virtual void CutName()
         {
-            int cut = Console.WindowWidth - Offset - "...".Length - 1;
+            int cut = Width - Offset - "...".Length - 1;
             if (Name.Length > cut)
             {
                 Name = Name.Remove(cut) + "...";
@@ -40,9 +40,9 @@ namespace FileSystemViewer
             }
             Prefix = prePrefix + Prefix;
         }
-        protected override void GetDeep()
+        protected int GetDepth()
         {
-            int slashesInPath = DriveDeep;
+            int slashesInPath = DriveDepth;
             foreach (char character in FullPath)
             {
                 if (character == '\\')
@@ -50,11 +50,12 @@ namespace FileSystemViewer
                     slashesInPath++;
                 }
             }
-            Deep = slashesInPath;
+            return slashesInPath;
         }
-        protected override void GetName()
+        protected override void SetName()
         {
             Name = new DirectoryInfo(FullPath).Name;
+            CutName();
         }
     }
 }

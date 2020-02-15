@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProgramLogic\OpenCloselogic.cs" />
+    <Compile Include="ProgramLogic\ScrollLogic.cs" />
     <Compile Include="Command\AssignedKey.cs" />
     <Compile Include="Command\ConcreteCommands\Close.cs" />
     <Compile Include="Command\Command.cs" />
@@ -56,8 +58,9 @@
     <Compile Include="Folder\Root.cs" />
     <Compile Include="MainFileSystemViever.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProgramLogic%28Procedure Edit%29.cs" />
+    <Compile Include="Draft\ProgramLogic%28Procedure Edit%29.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Write.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -7,7 +7,7 @@
         }
         public override void Execute()
         {
-            Viewer.MoveDown();
+            ++Viewer.Cursor;
         }
     }
 }

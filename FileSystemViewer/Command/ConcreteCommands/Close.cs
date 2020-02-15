@@ -7,7 +7,7 @@
         }
         public override void Execute()
         {
-            Viewer.Close();
+            Viewer.OpenClose.Close();
         }
     }
 }

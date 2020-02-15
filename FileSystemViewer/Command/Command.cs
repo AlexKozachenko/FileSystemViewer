@@ -1,6 +1,6 @@
 ﻿namespace FileSystemViewer
 {
-    internal abstract class Command
+    internal abstract class Command 
     {
         public Program Viewer { get; }
         public Command(Program viewer)

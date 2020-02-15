@@ -15,10 +15,6 @@ namespace FileSystemViewer
                 new AssignedKey(ConsoleKey.DownArrow, new MoveDown(Viewer)),
                 new AssignedKey(ConsoleKey.RightArrow, new Open(Viewer)),
                 new AssignedKey(ConsoleKey.LeftArrow, new Close(Viewer)),
-                new AssignedKey(ConsoleKey.W, new MoveUp(Viewer)),
-                new AssignedKey(ConsoleKey.S, new MoveDown(Viewer)),
-                new AssignedKey(ConsoleKey.D, new Open(Viewer)),
-                new AssignedKey(ConsoleKey.A, new Close(Viewer))
             };
         }
         public void Read(ConsoleKey input)
