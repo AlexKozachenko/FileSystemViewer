@@ -13,9 +13,9 @@ namespace FileSystemViewer
         }
         public FileName(string fullPath, string parentPrefix) : base(fullPath, parentPrefix)
         {
-            IsEmpty = true;
+            IsEmpty = IsLeaf = true;
         }
-        public override ConsoleColor Color { get; } = ConsoleColor.Cyan;
+        public override ConsoleColor Color => ConsoleColor.Cyan;
         protected override void CutName()
         {
             int cut = Console.WindowWidth - Offset - Size().Length - "...".Length - 1;
@@ -28,9 +28,9 @@ namespace FileSystemViewer
                 Name = Name + Size();
             }
         }
-        public override void FormatPrefix()
+        protected override void GetPrefix()
         {
-            Prefix = PrePrefix + "  ";
+            Prefix = "  ";
         }
         private string Size()
         {

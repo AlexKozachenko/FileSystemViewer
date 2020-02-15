@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.IO;
 
@@ -7,14 +6,14 @@ namespace FileSystemViewer
 {
     internal class Program
     {
+        private const ConsoleColor ServiceColor = ConsoleColor.DarkGray;
         private int cursorPosition = 0;
-        private Collection<DriveName> childrenTemporary = new Collection<DriveName>();
+        private List<DriveName> childrenTemporary = new List<DriveName>();
         private List<DefaultFolder> foldersUnderTop = new List<DefaultFolder>()
         {
             new Root()
         };
         private Stack<DefaultFolder> foldersOverTop = new Stack<DefaultFolder>();
-        private readonly int lastRowIndex = Console.WindowHeight - 1;
         public Program()
         {
             Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
@@ -38,21 +37,23 @@ namespace FileSystemViewer
                 if (value > LastFolderIndex)
                 {
                     //протяжка вниз до последней строки, если последняя папка закрылась посреди окна
-                    if (LastFolderIndex < lastRowIndex)
+                    if (LastFolderIndex < LastRowIndex)
                     {
                         PopInTop();
                     }
                     value = LastFolderIndex;
                 }
-                if (value > lastRowIndex)
+                if (value > LastRowIndex)
                 {
                     PushTop();
-                    value = lastRowIndex;
+                    value = LastRowIndex;
                 }
                 cursorPosition = value;
             }
         }
         private int LastFolderIndex => foldersUnderTop.Count - 1;
+        private int LastRowIndex => Console.WindowHeight - 1;
+
         public void Close()
         {
             if (Current.IsOpen)
@@ -60,13 +61,6 @@ namespace FileSystemViewer
                 foldersUnderTop.RemoveAll(folder => folder.FullPath.Contains(Current.FullPath)
                     && folder.Deep > Current.Deep);
                 Current.IsOpen = false;
-            }
-        }
-        private void FinalizeContainers()
-        {
-            if (childrenTemporary.Count > 0)
-            {
-                childrenTemporary[childrenTemporary.Count - 1].IsLastContainer = true;
             }
         }
         private void GetChildren()
@@ -77,7 +71,6 @@ namespace FileSystemViewer
                 {
                     childrenTemporary.Add(new DriveName(drive.Name));
                 }
-                FinalizeContainers();
             }
             else
             {
@@ -87,16 +80,16 @@ namespace FileSystemViewer
                     {
                         childrenTemporary.Add(new FolderName(directory, Current.Prefix));
                     }
-                    FinalizeContainers();
                     foreach (string file in Directory.GetFiles(Current.FullPath))
                     {
                         childrenTemporary.Add(new FileName(file, Current.Prefix));
                     }
                 }
             }
-            foreach (DriveName child in childrenTemporary)
+            int lastContainerIndex = childrenTemporary.FindLastIndex(folder => !folder.IsLeaf);
+            if (lastContainerIndex > -1)
             {
-                child.FormatPrefix();
+                childrenTemporary[lastContainerIndex].GetLastContainerPrefix();
             }
         }
         public void MoveDown()
@@ -127,7 +120,7 @@ namespace FileSystemViewer
                 }
             }
             //при открытии папки на последней строке список скроллится на 1 вниз
-            if (CursorPosition == lastRowIndex && Current.IsOpen)
+            if (CursorPosition == LastRowIndex && Current.IsOpen)
             {
                 ++CursorPosition;
             }
@@ -144,23 +137,26 @@ namespace FileSystemViewer
             foldersOverTop.Push(foldersUnderTop[0]);
             foldersUnderTop.RemoveAt(0);
         }
-
-        public void Write(ConsoleColor color, string line)
+        public void Write(ConsoleColor fontColor, string line)
         {
-            Console.ForegroundColor = color;
+            Console.ForegroundColor = fontColor;
             Console.Write(line);
         }
-
         public void WriteScreen()
         {
             Console.ResetColor();
             Console.Clear();
-            const ConsoleColor ServiceColor = ConsoleColor.DarkGray;
-            for (int lineIndex = 0; lineIndex <= LastFolderIndex && lineIndex <= lastRowIndex; ++lineIndex)
+            int row = 0;
+            foreach (DefaultFolder folder in foldersUnderTop)
             {
-                Console.SetCursorPosition(0, lineIndex);
-                Write(ServiceColor, foldersUnderTop[lineIndex].Prefix);
-                Write(foldersUnderTop[lineIndex].Color, foldersUnderTop[lineIndex].Name);
+                Console.SetCursorPosition(0, row);
+                Write(ServiceColor, folder.Prefix);
+                Write(folder.Color, folder.Name);
+                if (row == LastRowIndex)
+                {
+                    break;
+                }
+                ++row;
             }
             Console.SetCursorPosition(Current.Offset, CursorPosition);
             Console.BackgroundColor = ServiceColor;

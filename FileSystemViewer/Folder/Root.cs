@@ -9,6 +9,6 @@ namespace FileSystemViewer
             FullPath = "";
             Name = "ThisPC";
         }
-        public override ConsoleColor Color { get; } = ConsoleColor.Blue;
+        public override ConsoleColor Color => ConsoleColor.DarkBlue;
     } 
 }

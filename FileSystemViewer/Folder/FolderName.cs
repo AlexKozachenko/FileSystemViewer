@@ -7,27 +7,11 @@ namespace FileSystemViewer
     {
         public FolderName(string fullPath, string parentPrefix) : base(fullPath)
         {
-            FormatPrePrefix(parentPrefix);
+            FormatPrefix(parentPrefix);
             CutName();
         }
-        public override ConsoleColor Color { get; } = ConsoleColor.Yellow;
-        public override int Deep
-        {
-            get
-            {
-                const int drivesDeep = 1;
-                int slashesInPath = drivesDeep;
-                foreach (char character in FullPath)
-                {
-                    if (character == '\\')
-                    {
-                        slashesInPath++;
-                    }
-                }
-                return slashesInPath;
-            }
-        }
-        public override string Name => new DirectoryInfo(FullPath).Name;
+        public override ConsoleColor Color => ConsoleColor.Yellow;
+
         protected virtual void CutName()
         {
             int cut = Console.WindowWidth - Offset - "...".Length - 1;
@@ -36,12 +20,13 @@ namespace FileSystemViewer
                 Name = Name.Remove(cut) + "...";
             }
         }
-        protected void FormatPrePrefix(string parentPrefix)
+        protected void FormatPrefix(string parentPrefix)
         {
-            for (int i = 0; PrePrefix.Length < Offset - Step; i = i + Step)
+            string prePrefix  = "";
+            for (int i = 0; prePrefix.Length < Offset - Step; i = i + Step)
             {
                 string character = " ";
-                //Предварительный префикс this по длине соотв. префиксу parent.
+                //Предварительный префикс this по длине соотв. префиксу parent или смещению parent, или собств. смещению - 2.
                 //Если символ в префиксе имени родителя ветвление или вертикальная черта, 
                 //в this на том же месте ставим верт. черту, 
                 //если пробел или угол - пробел. Верт. черта не может быть под углом или пробелом
@@ -51,9 +36,25 @@ namespace FileSystemViewer
                     character = ((char)0x2502).ToString();
                 }
                 //сборка предварительного префикса
-                //начальный пре-префикс: нулевая строка у жестких дисков
-                PrePrefix = PrePrefix + character + " ";
+                prePrefix = prePrefix + character + " ";
             }
+            Prefix = prePrefix + Prefix;
+        }
+        protected override void GetDeep()
+        {
+            int slashesInPath = DriveDeep;
+            foreach (char character in FullPath)
+            {
+                if (character == '\\')
+                {
+                    slashesInPath++;
+                }
+            }
+            Deep = slashesInPath;
+        }
+        protected override void GetName()
+        {
+            Name = new DirectoryInfo(FullPath).Name;
         }
     }
 }
