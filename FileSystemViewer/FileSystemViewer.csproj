@@ -42,11 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProgramLogic\OpenCloselogic.cs" />
-    <Compile Include="ProgramLogic\ScrollLogic.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\SelectionCommand.cs" />
+    <Compile Include="ProgramLogic\FolderManagement.cs" />
+    <Compile Include="ProgramLogic\SelectionAndScrolling.cs" />
     <Compile Include="Command\AssignedKey.cs" />
     <Compile Include="Command\ConcreteCommands\Close.cs" />
-    <Compile Include="Command\Command.cs" />
+    <Compile Include="Command\FolderManagementCommand.cs" />
     <Compile Include="Command\ConcreteCommands\Open.cs" />
     <Compile Include="Command\ConcreteCommands\MoveDown.cs" />
     <Compile Include="Command\ConcreteCommands\MoveUp.cs" />
@@ -64,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

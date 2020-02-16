@@ -5,11 +5,12 @@ namespace FileSystemViewer
     internal class Draw
     {
         private const ConsoleColor ServiceColor = ConsoleColor.DarkGray;
-        private ScrollLogic scroll;
-        public Draw(ScrollLogic scroll_)
+        private SelectionAndScrolling selection;
+        public Draw(SelectionAndScrolling selection_)
         {
-            scroll = scroll_;
+            selection = selection_;
         }
+        public DefaultFolder Current => selection.FoldersUnderTop[selection.Position];
         public void Write(ConsoleColor fontColor, string line)
         {
             Console.ForegroundColor = fontColor;
@@ -20,20 +21,20 @@ namespace FileSystemViewer
             Console.ResetColor();
             Console.Clear();
             int rowIndex = 0;
-            foreach (DefaultFolder folder in scroll.FoldersUnderTop)
+            foreach (DefaultFolder folder in selection.FoldersUnderTop)
             {
                 Console.SetCursorPosition(0, rowIndex);
                 Write(ServiceColor, folder.Prefix);
                 Write(folder.Color, folder.Name);
-                if (rowIndex == scroll.MaxRowIndex)
+                if (rowIndex == selection.MaxRowIndex)
                 {
                     break;
                 }
                 ++rowIndex;
             }
-            Console.SetCursorPosition(scroll.Current.Offset, scroll.Position);
+            Console.SetCursorPosition(Current.Offset, selection.Position);
             Console.BackgroundColor = ServiceColor;
-            Write(scroll.Current.Color, scroll.Current.Name);
+            Write(Current.Color, Current.Name);
         }
     }
 }

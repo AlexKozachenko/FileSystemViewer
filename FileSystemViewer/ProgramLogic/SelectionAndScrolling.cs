@@ -3,17 +3,16 @@ using System.Collections.Generic;
 
 namespace FileSystemViewer
 {
-    internal class ScrollLogic
+    internal class SelectionAndScrolling
     {
-        private int cursorPosition = 0;
         private Stack<DefaultFolder> foldersOverTop = new Stack<DefaultFolder>();
-        public ScrollLogic(List<DefaultFolder> folders)
+        private int position = 0;
+        public SelectionAndScrolling(List<DefaultFolder> folders)
         {
             Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
             Console.CursorVisible = false;
             FoldersUnderTop = folders;
         }
-        public DefaultFolder Current => FoldersUnderTop[Position];
         public List<DefaultFolder> FoldersUnderTop { get; }
         public int MaxFolderIndex => FoldersUnderTop.Count - 1;
         public int MaxRowIndex => Console.WindowHeight - 1;
@@ -21,7 +20,7 @@ namespace FileSystemViewer
         {
             get
             {
-                return cursorPosition;
+                return position;
             }
             set
             {
@@ -41,10 +40,12 @@ namespace FileSystemViewer
                 }
                 if (value > MaxRowIndex)
                 {
-                    PushTop();
+                    //PushTop:
+                    foldersOverTop.Push(FoldersUnderTop[0]);
+                    FoldersUnderTop.RemoveAt(0);
                     value = MaxRowIndex;
                 }
-                cursorPosition = value;
+                position = value;
             }
         }
         private void PopInTop()
@@ -53,21 +54,6 @@ namespace FileSystemViewer
             {
                 FoldersUnderTop.Insert(0, foldersOverTop.Pop());
             }
-        }
-        private void PushTop()
-        {
-            foldersOverTop.Push(FoldersUnderTop[0]);
-            FoldersUnderTop.RemoveAt(0);
-        }
-        public static ScrollLogic operator ++(ScrollLogic cursor)
-        {
-            ++cursor.Position;
-            return cursor;
-        }
-        public static ScrollLogic operator --(ScrollLogic cursor)
-        {
-            --cursor.Position;
-            return cursor;
         }
     }
 }

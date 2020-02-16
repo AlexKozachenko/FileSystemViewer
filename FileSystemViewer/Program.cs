@@ -10,33 +10,36 @@ namespace FileSystemViewer
         {
             new Root()
         };
-        private Draw write;
+        KeyAssign keys;
         public Program()
         {
-            Cursor = new ScrollLogic(folders);
-            OpenClose = new OpenCloselogic(Cursor);
-            write = new Draw(Cursor);
-            OpenClose.Open();
+            Selection = new SelectionAndScrolling(folders);
+            ManageFolder = new FolderManagement(Selection);
+            Write = new Draw(Selection);
+            keys = new KeyAssign(Selection, ManageFolder);
+            ManageFolder.Open();
+            ++Selection.Position;
         }
-        public ScrollLogic Cursor { get; set; }
-        public OpenCloselogic OpenClose { get; }
-        public void Run(KeyAssign keys)
+        public SelectionAndScrolling Selection { get; set; }
+        public FolderManagement ManageFolder { get; }
+        public Draw Write { get; }
+        public void Run()
         {
             try
             {
                 while (true)
                 {
-                    write.WriteScreen();
+                    Write.WriteScreen();
                     keys.Read(Console.ReadKey().Key);
                 }
             }
             catch (IOException)
             {
-                Run(keys);
+                Run();
             }
             catch (UnauthorizedAccessException)
             {
-                Run(keys);
+                Run();
             }
         }
     }

@@ -5,8 +5,8 @@ namespace FileSystemViewer
     internal class AssignedKey
     {
         public ConsoleKey Key { get; set; }
-        public Command Command { get; set; }
-        public AssignedKey(ConsoleKey key, Command command)
+        public ICommand Command { get; set; }
+        public AssignedKey(ConsoleKey key, ICommand command)
         {
             Key = key;
             Command = command;

@@ -8,8 +8,7 @@ namespace FileSystemViewer
         {
             Console.Title = "FileSystemViever";
             Program viewer = new Program();
-            KeyAssign keys = new KeyAssign(viewer);
-            viewer.Run(keys);
+            viewer.Run();
         }
     }
 }

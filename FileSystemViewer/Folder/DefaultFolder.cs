@@ -2,7 +2,7 @@
 
 namespace FileSystemViewer
 {
-    internal abstract class DefaultFolder
+    internal abstract class DefaultFolder 
     {
         public DefaultFolder()
         {
