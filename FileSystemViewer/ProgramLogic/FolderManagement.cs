@@ -23,7 +23,7 @@ namespace FileSystemViewer
         }
         public void Open()
         {
-            int nextPosition = Selection.Position + 1;
+            int lastContainerIndex = - 1;
             //первый раз проверяется любая папка (не пустая по умолчанию), т.к. неизвестно, пустая она или нет,
             //если пустая, при следующем раскрытии процесс получения вложенных папок отменяется
             if (!Current.IsOpen && !Current.IsEmpty)
@@ -33,8 +33,8 @@ namespace FileSystemViewer
                     foreach (DriveInfo drive in DriveInfo.GetDrives())
                     {
                         childrenTemporary.Add(new DriveName(drive.Name));
+                        ++lastContainerIndex;
                     }
-                    childrenTemporary[childrenTemporary.Count - 1].SetLastContainerPrefix();
                 }
                 else
                 {
@@ -43,10 +43,7 @@ namespace FileSystemViewer
                         foreach (string directory in Directory.GetDirectories(Current.FullPath))
                         {
                             childrenTemporary.Add(new FolderName(directory, Current.Prefix));
-                        }
-                        if (childrenTemporary.Count > 0)
-                        {
-                            childrenTemporary[childrenTemporary.Count - 1].SetLastContainerPrefix();
+                            ++lastContainerIndex;
                         }
                         foreach (string file in Directory.GetFiles(Current.FullPath))
                         {
@@ -56,6 +53,11 @@ namespace FileSystemViewer
                 }
                 if (childrenTemporary.Count > 0)
                 {
+                    int nextPosition = Selection.Position + 1;
+                    if (lastContainerIndex >= 0)
+                    {
+                        childrenTemporary[lastContainerIndex].SetLastContainerPrefix();
+                    }
                     Selection.FoldersUnderTop.InsertRange(nextPosition, childrenTemporary);
                     childrenTemporary.Clear();
                     Current.IsOpen = true;

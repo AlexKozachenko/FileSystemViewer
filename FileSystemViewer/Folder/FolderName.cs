@@ -5,16 +5,16 @@ namespace FileSystemViewer
 {
     internal class FolderName : DriveName
     {
+        protected int lastColumnIndex = Console.WindowWidth - 1;
         public FolderName(string fullPath, string parentPrefix) : base(fullPath)
         {
             FormatPrefix(parentPrefix);
         }
         public override ConsoleColor Color => ConsoleColor.Yellow;
         public override int Depth => GetDepth();
-        protected int Width => Console.WindowWidth;
         protected virtual void CutName()
         {
-            int cut = Width - Offset - "...".Length - 1;
+            int cut = lastColumnIndex - Offset - "...".Length;
             if (Name.Length > cut)
             {
                 Name = Name.Remove(cut) + "...";

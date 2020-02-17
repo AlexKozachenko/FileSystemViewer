@@ -19,7 +19,7 @@ namespace FileSystemViewer
         public override string Prefix { get; set; } = "  ";
         protected override void CutName()
         {
-            int cut = Width - Offset - Size().Length - "...".Length - 1;
+            int cut = lastColumnIndex - Offset - Size().Length - "...".Length - 1;
             if (Name.Length > cut)
             {
                 Name = Name.Remove(cut) + "..." + Size();
@@ -55,5 +55,6 @@ namespace FileSystemViewer
             }
             return fileSize;
         }
+        //public override void GetChildren() { }
     }
 }
