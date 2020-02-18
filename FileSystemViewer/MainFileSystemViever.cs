@@ -7,7 +7,7 @@ namespace FileSystemViewer
         public static void Main()
         {
             Console.Title = "FileSystemViever";
-            Program viewer = new Program();
+            FileSystemViewerRun viewer = new FileSystemViewerRun();
             viewer.Run();
         }
     }

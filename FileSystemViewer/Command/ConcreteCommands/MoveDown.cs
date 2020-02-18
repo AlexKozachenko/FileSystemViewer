@@ -1,13 +1,13 @@
 ﻿namespace FileSystemViewer
 {
-    internal class MoveDown : SelectionCommand, ICommand
+    internal class MoveDown : Command
     {
-        public MoveDown(SelectionAndScrolling selection) : base(selection)
+        public MoveDown(ProgramLogic logic) : base(logic)
         {
         }
-        public void Execute()
+        public override void Execute()
         {
-            ++Selection.Position;
+            ++Logic.Position;
         }
     }
 }

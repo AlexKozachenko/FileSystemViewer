@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace FileSystemViewer
 {
     internal abstract class DefaultFolder

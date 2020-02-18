@@ -1,13 +1,13 @@
 ﻿namespace FileSystemViewer
 {
-    internal class Open : OpenCloseCommand, ICommand
+    internal class Open : Command
     { 
-        public Open(FolderManagement manageFolder) : base(manageFolder)
+        public Open(ProgramLogic logic) : base(logic)
         {
         }
-        public void Execute()
+        public override void Execute()
         {
-            ManageFolder.Open();
+            Logic.Open();
         }
     }
 }

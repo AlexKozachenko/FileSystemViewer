@@ -55,6 +55,5 @@ namespace FileSystemViewer
             }
             return fileSize;
         }
-        //public override void GetChildren() { }
     }
 }

@@ -5,18 +5,14 @@ namespace FileSystemViewer
     internal class KeyAssign
     {
         private readonly AssignedKey[] keys;
-        public SelectionAndScrolling Selection { get; set; }
-        public FolderManagement ManageFolder { get; set; }
-        public KeyAssign(SelectionAndScrolling cursor, FolderManagement manageFolder)
+        public KeyAssign(ProgramLogic logic)
         {
-            Selection = cursor;
-            ManageFolder = manageFolder;
             keys = new AssignedKey[]
             {
-                new AssignedKey(ConsoleKey.UpArrow, new MoveUp(Selection)),
-                new AssignedKey(ConsoleKey.DownArrow, new MoveDown(Selection)),
-                new AssignedKey(ConsoleKey.RightArrow, new Open(ManageFolder)),
-                new AssignedKey(ConsoleKey.LeftArrow, new Close(ManageFolder)),
+                new AssignedKey(ConsoleKey.UpArrow, new MoveUp(logic)),
+                new AssignedKey(ConsoleKey.DownArrow, new MoveDown(logic)),
+                new AssignedKey(ConsoleKey.RightArrow, new Open(logic)),
+                new AssignedKey(ConsoleKey.LeftArrow, new Close(logic)),
             };
         }
         public void Read(ConsoleKey input)
