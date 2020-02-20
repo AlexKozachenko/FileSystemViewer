@@ -5,7 +5,8 @@ namespace FileSystemViewer
 {
     internal class FolderName : DriveName
     {
-        protected int lastColumnIndex = Console.WindowWidth - 1;
+        protected readonly int lastColumnIndex = Console.WindowWidth - 1;
+        protected readonly string threeDot = "...";
         public FolderName(string fullPath, string parentPrefix) : base(fullPath)
         {
             FormatPrefix(parentPrefix);
@@ -14,16 +15,16 @@ namespace FileSystemViewer
         public override int Depth => GetDepth();
         protected virtual void CutName()
         {
-            int cut = lastColumnIndex - Offset - "...".Length;
+            int cut = lastColumnIndex - Offset - threeDot.Length;
             if (Name.Length > cut)
             {
-                Name = Name.Remove(cut) + "...";
+                Name = Name.Remove(cut) + threeDot;
             }
         }
         protected void FormatPrefix(string parentPrefix)
         {
             string prePrefix  = "";
-            for (int i = 0; prePrefix.Length < Offset - Step; i = i + Step)
+            for (int i = 0; prePrefix.Length < Offset - StepOffset; i += StepOffset)
             {
                 string character = " ";
                 //Предварительный префикс this по длине соотв. префиксу parent или смещению parent, или собств. смещению - 2.

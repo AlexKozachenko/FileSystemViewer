@@ -1,12 +1,11 @@
 ﻿namespace FileSystemViewer
 {
-    internal abstract class Command
+    internal abstract class DefaultKey
     {
         public ProgramLogic Logic { get; set; }
-        public Command(ProgramLogic logic)
+        public DefaultKey(ProgramLogic logic)
         {
             Logic = logic;
         }
-        public abstract void Execute();
     }
 }

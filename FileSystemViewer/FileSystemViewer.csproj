@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\Command.cs" />
+    <Compile Include="Command\DefaultKey.cs" />
+    <Compile Include="Command\ICommand.cs" />
     <Compile Include="ProgramLogic\ProgramLogic.cs" />
     <Compile Include="Command\AssignedKey.cs" />
     <Compile Include="Command\ConcreteCommands\Close.cs" />

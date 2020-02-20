@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace FileSystemViewer
@@ -13,16 +14,18 @@ namespace FileSystemViewer
         }
         public FileName(string fullPath, string parentPrefix) : base(fullPath, parentPrefix)
         {
-            IsEmpty = true;
         }
+        public override List<DriveName> Children => null;
         public override ConsoleColor Color => ConsoleColor.Cyan;
-        public override string Prefix { get; set; } = "  ";
+        public override bool IsEmpty => true;
+        public override bool IsOpen => false;
+        public override string Prefix { get; protected set; } = "  ";
         protected override void CutName()
         {
-            int cut = lastColumnIndex - Offset - Size().Length - "...".Length - 1;
+            int cut = lastColumnIndex - Offset - Size().Length - threeDot.Length - 1;
             if (Name.Length > cut)
             {
-                Name = Name.Remove(cut) + "..." + Size();
+                Name = Name.Remove(cut) + threeDot + Size();
             }
             else
             {
@@ -33,25 +36,22 @@ namespace FileSystemViewer
         {
             string fileSize = "";
             long size = 0;
-            if (File.Exists(FullPath))
+            size = new FileInfo(FullPath).Length;
+            if (size < (long)Bytes.KB)
             {
-                size = new FileInfo(FullPath).Length;
-                if (size < (long)Bytes.KB)
-                {
-                    fileSize = " (" + size.ToString() + " B)";
-                }
-                if (size >= (long)Bytes.KB && size < (long)Bytes.MB)
-                {
-                    fileSize = " (" + Math.Round(size / (double)Bytes.KB, 2).ToString() + " Kb)";
-                }
-                if (size >= (long)Bytes.MB && size < (long)Bytes.GB)
-                {
-                    fileSize = " (" + Math.Round(size / (double)Bytes.MB, 2).ToString() + " Mb)";
-                }
-                if (size >= (long)Bytes.GB)
-                {
-                    fileSize = " (" + Math.Round(size / (double)Bytes.GB, 2).ToString() + " Gb)";
-                }
+                fileSize = " (" + size.ToString() + " B)";
+            }
+            if (size >= (long)Bytes.KB && size < (long)Bytes.MB)
+            {
+                fileSize = " (" + Math.Round(size / (double)Bytes.KB, 2).ToString() + " Kb)";
+            }
+            if (size >= (long)Bytes.MB && size < (long)Bytes.GB)
+            {
+                fileSize = " (" + Math.Round(size / (double)Bytes.MB, 2).ToString() + " Mb)";
+            }
+            if (size >= (long)Bytes.GB)
+            {
+                fileSize = " (" + Math.Round(size / (double)Bytes.GB, 2).ToString() + " Gb)";
             }
             return fileSize;
         }

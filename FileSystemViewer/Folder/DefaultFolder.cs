@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 
 namespace FileSystemViewer
 {
@@ -12,14 +12,23 @@ namespace FileSystemViewer
         {
             FullPath = fullPath;
         }
+        public virtual List<DriveName> Children { get; } = new List<DriveName>();
         public abstract ConsoleColor Color { get; }
         public virtual int Depth { get; protected set; }
-        public string FullPath { get; protected set; }
-        //по умолчанию папка cчитается не пустой, пока не пройдет проверку при раскрытии в методе Open
-        public bool IsEmpty { get; set; }
-        public bool IsOpen { get; set; }
+        public string FullPath { get; protected set; } = "";
+        public virtual bool IsEmpty { get; set; }
+        public virtual bool IsOpen { get; set; }
         public string Name { get; protected set; }
         public virtual int Offset { get; protected set; }
-        public virtual string Prefix { get; set; }
+        public virtual string Prefix { get; protected set; }
+        public bool WasOpened { get; set; }
+        public abstract void GetChildren();
+        protected void SetLastContainer()
+        {
+            if (Children.Exists(folder => !folder.IsEmpty))
+            {
+                Children.FindLast(folder => !folder.IsEmpty).SetLastContainerPrefix();
+            }
+        }
     }
 }

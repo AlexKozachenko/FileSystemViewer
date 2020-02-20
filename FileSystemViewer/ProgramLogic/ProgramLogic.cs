@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 
 namespace FileSystemViewer
 {
@@ -24,6 +22,13 @@ namespace FileSystemViewer
             }
             set
             {
+                void PopInTop()
+                {
+                    if (foldersOverTop.Count > 0)
+                    {
+                        foldersUnderTop.Insert(0, foldersOverTop.Pop());
+                    }
+                }
                 if (value < 0)
                 {
                     PopInTop();
@@ -59,48 +64,33 @@ namespace FileSystemViewer
         }
         public void Open()
         {
-            Collection<DriveName> childrenTemporary = new Collection<DriveName>();
-            int lastContainerIndex = -1;
-            //первый раз проверяется любая папка (не пустая по умолчанию), т.к. неизвестно, пустая она или нет,
+            void Insert()
+            {
+                int nextPosition = Position + 1;
+                foldersUnderTop.InsertRange(nextPosition, Current.Children);
+                Current.IsOpen = true;
+            }
+            //первый раз проверяется любая папка (не пустая по умолчанию, т.к. неизвестно, пустая она или нет),
             //если пустая, при следующем раскрытии процесс получения вложенных папок отменяется
             if (!Current.IsOpen && !Current.IsEmpty)
             {
-                if (Current.Depth == 0)
+                if (!Current.WasOpened)
                 {
-                    foreach (DriveInfo drive in DriveInfo.GetDrives())
+                    Current.GetChildren();
+                    if (Current.Children.Count > 0)
                     {
-                        childrenTemporary.Add(new DriveName(drive.Name));
-                        ++lastContainerIndex;
+                        Insert();
+                        Current.WasOpened = true;
                     }
-                }
-                else
-                {
-                    if (Directory.Exists(Current.FullPath))
+                    else
                     {
-                        foreach (string directory in Directory.GetDirectories(Current.FullPath))
-                        {
-                            childrenTemporary.Add(new FolderName(directory, Current.Prefix));
-                            ++lastContainerIndex;
-                        }
-                        foreach (string file in Directory.GetFiles(Current.FullPath))
-                        {
-                            childrenTemporary.Add(new FileName(file, Current.Prefix));
-                        }
+                        Current.IsEmpty = true;
                     }
+
                 }
-                if (lastContainerIndex >= 0)
+                else 
                 {
-                    childrenTemporary[lastContainerIndex].SetLastContainerPrefix();
-                }
-                if (childrenTemporary.Count > 0)
-                {
-                    int nextPosition = Position + 1;
-                    foldersUnderTop.InsertRange(nextPosition, childrenTemporary);
-                    Current.IsOpen = true;
-                }
-                else
-                {
-                    Current.IsEmpty = true;
+                    Insert();
                 }
             }
             //при открытии папки на последней строке список скроллится на 1 вниз
@@ -109,20 +99,13 @@ namespace FileSystemViewer
                 ++Position;
             }
         }
-        private void PopInTop()
-        {
-            if (foldersOverTop.Count > 0)
-            {
-                foldersUnderTop.Insert(0, foldersOverTop.Pop());
-            }
-        }
-        private void Write(ConsoleColor fontColor, string line)
-        {
-            Console.ForegroundColor = fontColor;
-            Console.Write(line);
-        }
         public void WriteScreen()
         {
+            void Write(ConsoleColor fontColor, string line)
+            {
+                Console.ForegroundColor = fontColor;
+                Console.Write(line);
+            }
             const ConsoleColor ServiceColor = ConsoleColor.DarkGray;
             Console.ResetColor();
             Console.Clear();
