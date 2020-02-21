@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace FileSystemViewer
@@ -15,14 +14,12 @@ namespace FileSystemViewer
         public FileName(string fullPath, string parentPrefix) : base(fullPath, parentPrefix)
         {
         }
-        public override List<DriveName> Children => null;
         public override ConsoleColor Color => ConsoleColor.Cyan;
-        public override bool IsEmpty => true;
-        public override bool IsOpen => false;
+        protected override bool IsEmpty => true;
         public override string Prefix { get; protected set; } = "  ";
         protected override void CutName()
         {
-            int cut = lastColumnIndex - Offset - Size().Length - threeDot.Length - 1;
+            int cut = lastColumnIndex - Offset - Size().Length - threeDot.Length;
             if (Name.Length > cut)
             {
                 Name = Name.Remove(cut) + threeDot + Size();

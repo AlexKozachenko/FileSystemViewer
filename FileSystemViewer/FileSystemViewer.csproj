@@ -51,7 +51,7 @@
     <Compile Include="Command\ConcreteCommands\MoveDown.cs" />
     <Compile Include="Command\ConcreteCommands\MoveUp.cs" />
     <Compile Include="Command\KeyAssign.cs" />
-    <Compile Include="Folder\DefaultFolder.cs" />
+    <Compile Include="Folder\DefaultComponent.cs" />
     <Compile Include="Folder\DriveName.cs" />
     <Compile Include="Folder\FileName.cs" />
     <Compile Include="Folder\FolderName.cs" />

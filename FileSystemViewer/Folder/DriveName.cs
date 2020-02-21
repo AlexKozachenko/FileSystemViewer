@@ -3,7 +3,7 @@ using System.IO;
 
 namespace FileSystemViewer
 {
-    internal class DriveName : DefaultFolder
+    internal class DriveName : DefaultComponent
     {
         protected const int DriveDepth = 1;
         protected const int StepOffset = 2;
@@ -23,17 +23,17 @@ namespace FileSystemViewer
         {
             Name = FullPath;
         }
-        public override void GetChildren()
+        protected override void GetChildren()
         {
             foreach (string directory in Directory.GetDirectories(FullPath))
             {
                 Children.Add(new FolderName(directory, Prefix));
             }
+            MarkLastContainer();
             foreach (string file in Directory.GetFiles(FullPath))
             {
                 Children.Add(new FileName(file, Prefix));
             }
-            SetLastContainer();
         }
     }
 }

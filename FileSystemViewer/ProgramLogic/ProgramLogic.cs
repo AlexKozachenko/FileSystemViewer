@@ -5,13 +5,13 @@ namespace FileSystemViewer
 {
     internal class ProgramLogic
     {
-        private Stack<DefaultFolder> foldersOverTop = new Stack<DefaultFolder>();
-        private List<DefaultFolder> foldersUnderTop = new List<DefaultFolder>()
+        private Stack<DefaultComponent> foldersOverTop = new Stack<DefaultComponent>();
+        private List<DefaultComponent> foldersUnderTop = new List<DefaultComponent>()
             {
                 new Root()
             };
         private int position = 0;
-        private DefaultFolder Current => foldersUnderTop[Position];
+        private DefaultComponent Current => foldersUnderTop[Position];
         private int MaxFolderIndex => foldersUnderTop.Count - 1;
         private int MaxRowIndex => Console.WindowHeight - 1;
         public int Position
@@ -55,45 +55,11 @@ namespace FileSystemViewer
         }
         public void Close()
         {
-            if (Current.IsOpen)
-            {
-                foldersUnderTop.RemoveAll(folder => folder.FullPath.Contains(Current.FullPath)
-                    && folder.Depth > Current.Depth);
-                Current.IsOpen = false;
-            }
+            Current.CloseComponent(foldersUnderTop, Position);
         }
         public void Open()
         {
-            void Insert()
-            {
-                int nextPosition = Position + 1;
-                foldersUnderTop.InsertRange(nextPosition, Current.Children);
-                Current.IsOpen = true;
-            }
-            //первый раз проверяется любая папка (не пустая по умолчанию, т.к. неизвестно, пустая она или нет),
-            //если пустая, при следующем раскрытии процесс получения вложенных папок отменяется
-            if (!Current.IsOpen && !Current.IsEmpty)
-            {
-                if (!Current.WasOpened)
-                {
-                    Current.GetChildren();
-                    if (Current.Children.Count > 0)
-                    {
-                        Insert();
-                        Current.WasOpened = true;
-                    }
-                    else
-                    {
-                        Current.IsEmpty = true;
-                    }
-
-                }
-                else 
-                {
-                    Insert();
-                }
-            }
-            //при открытии папки на последней строке список скроллится на 1 вниз
+            Current.OpenComponent(foldersUnderTop, Position);
             if (Position == MaxRowIndex && Current.IsOpen)
             {
                 ++Position;
@@ -110,7 +76,7 @@ namespace FileSystemViewer
             Console.ResetColor();
             Console.Clear();
             int rowIndex = 0;
-            foreach (DefaultFolder folder in foldersUnderTop)
+            foreach (DefaultComponent folder in foldersUnderTop)
             {
                 Console.SetCursorPosition(0, rowIndex);
                 Write(ServiceColor, folder.Prefix);

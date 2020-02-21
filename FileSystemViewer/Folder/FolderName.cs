@@ -27,7 +27,8 @@ namespace FileSystemViewer
             for (int i = 0; prePrefix.Length < Offset - StepOffset; i += StepOffset)
             {
                 string character = " ";
-                //Предварительный префикс this по длине соотв. префиксу parent или смещению parent, или собств. смещению - 2.
+                //Предварительный префикс this по длине соотв. префиксу или смещению parent.
+                //Впервые появляется у первого поколения папок.
                 //Если символ в префиксе имени родителя ветвление или вертикальная черта, 
                 //в this на том же месте ставим верт. черту, 
                 //если пробел или угол - пробел. Верт. черта не может быть под углом или пробелом
@@ -48,7 +49,7 @@ namespace FileSystemViewer
             {
                 if (character == '\\')
                 {
-                    slashesInPath++;
+                    ++slashesInPath;
                 }
             }
             return slashesInPath;
