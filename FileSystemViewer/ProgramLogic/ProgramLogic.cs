@@ -55,11 +55,11 @@ namespace FileSystemViewer
         }
         public void Close()
         {
-            Current.CloseComponent(foldersUnderTop, Position);
+            Current.CloseContainer(foldersUnderTop, Position);
         }
         public void Open()
         {
-            Current.OpenComponent(foldersUnderTop, Position);
+            Current.OpenContainer(foldersUnderTop, Position);
             if (Position == MaxRowIndex && Current.IsOpen)
             {
                 ++Position;

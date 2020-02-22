@@ -9,14 +9,16 @@ namespace FileSystemViewer
         {
             Name = "ThisPC";
         }
+
         public override ConsoleColor Color => ConsoleColor.Blue;
+
         protected override void GetChildren()
         {
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
                 Children.Add(new DriveName(drive.Name));
             }
-            MarkLastContainer();
+            DriveName.MarkLastContainer();
         }
     }
 }

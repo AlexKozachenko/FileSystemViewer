@@ -11,24 +11,30 @@ namespace FileSystemViewer
             MB = 1024 * 1024,
             GB = 1024 * 1024 * 1024
         }
+
         public FileName(string fullPath, string parentPrefix) : base(fullPath, parentPrefix)
         {
         }
+
         public override ConsoleColor Color => ConsoleColor.Cyan;
+
         protected override bool IsEmpty => true;
+
         public override string Prefix { get; protected set; } = "  ";
+
         protected override void CutName()
         {
-            int cut = lastColumnIndex - Offset - Size().Length - threeDot.Length;
+            int cut = LastColumnIndex - Offset - Size().Length - ThreeDot.Length;
             if (Name.Length > cut)
             {
-                Name = Name.Remove(cut) + threeDot + Size();
+                Name = Name.Remove(cut) + ThreeDot + Size();
             }
             else
             {
                 Name = Name + Size();
             }
         }
+
         private string Size()
         {
             string fileSize = "";

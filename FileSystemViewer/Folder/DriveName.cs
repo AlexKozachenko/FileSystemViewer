@@ -7,21 +7,27 @@ namespace FileSystemViewer
     {
         protected const int DriveDepth = 1;
         protected const int StepOffset = 2;
+
         public DriveName(string fullPath) : base(fullPath)
+
         {
             SetName();
         }
+
         public override ConsoleColor Color => ConsoleColor.Green;
+
         public override int Depth => DriveDepth;
+
         public override int Offset => Depth * StepOffset;
+
         public override string Prefix { get; protected set; } = ((char)0x251C).ToString() + (char)0x2500;
-        public void SetLastContainerPrefix()
+
+        public static void MarkLastContainer()
         {
-            Prefix = Prefix.Replace((char)0x251C, (char)0x2514);
-        }
-        protected virtual void SetName()
-        {
-            Name = FullPath;
+            if (Children.Count > 0)
+            {
+                Children[Children.Count - 1].SetLastContainerPrefix();
+            }
         }
         protected override void GetChildren()
         {
@@ -34,6 +40,16 @@ namespace FileSystemViewer
             {
                 Children.Add(new FileName(file, Prefix));
             }
+        }
+
+        protected void SetLastContainerPrefix()
+        {
+            Prefix = Prefix.Replace((char)0x251C, (char)0x2514);
+        }
+
+        protected virtual void SetName()
+        {
+            Name = FullPath;
         }
     }
 }

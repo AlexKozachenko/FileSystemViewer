@@ -5,22 +5,29 @@ namespace FileSystemViewer
 {
     internal class FolderName : DriveName
     {
-        protected readonly int lastColumnIndex = Console.WindowWidth - 1;
-        protected readonly string threeDot = "...";
+        protected const string ThreeDot = "...";
+
         public FolderName(string fullPath, string parentPrefix) : base(fullPath)
         {
             FormatPrefix(parentPrefix);
         }
+
+
         public override ConsoleColor Color => ConsoleColor.Yellow;
+
         public override int Depth => GetDepth();
+
+        protected int LastColumnIndex => Console.WindowWidth - 1;
+
         protected virtual void CutName()
         {
-            int cut = lastColumnIndex - Offset - threeDot.Length;
+            int cut = LastColumnIndex - Offset - ThreeDot.Length;
             if (Name.Length > cut)
             {
-                Name = Name.Remove(cut) + threeDot;
+                Name = Name.Remove(cut) + ThreeDot;
             }
         }
+
         protected void FormatPrefix(string parentPrefix)
         {
             string prePrefix  = "";
@@ -38,10 +45,11 @@ namespace FileSystemViewer
                     character = ((char)0x2502).ToString();
                 }
                 //сборка предварительного префикса
-                prePrefix = prePrefix + character + " ";
+                prePrefix += character + " ";
             }
             Prefix = prePrefix + Prefix;
         }
+
         protected int GetDepth()
         {
             int slashesInPath = DriveDepth;
@@ -54,6 +62,7 @@ namespace FileSystemViewer
             }
             return slashesInPath;
         }
+
         protected override void SetName()
         {
             Name = new DirectoryInfo(FullPath).Name;
