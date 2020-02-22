@@ -11,9 +11,13 @@ namespace FileSystemViewer
                 new Root()
             };
         private int position = 0;
+
         private DefaultComponent Current => foldersUnderTop[Position];
+
         private int MaxFolderIndex => foldersUnderTop.Count - 1;
+
         private int MaxRowIndex => Console.WindowHeight - 1;
+
         public int Position
         {
             get
@@ -53,10 +57,12 @@ namespace FileSystemViewer
                 position = value;
             }
         }
+
         public void Close()
         {
             Current.CloseContainer(foldersUnderTop, Position);
         }
+
         public void Open()
         {
             Current.OpenContainer(foldersUnderTop, Position);
@@ -65,6 +71,7 @@ namespace FileSystemViewer
                 ++Position;
             }
         }
+
         public void WriteScreen()
         {
             void Write(ConsoleColor fontColor, string line)
