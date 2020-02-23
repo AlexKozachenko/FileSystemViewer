@@ -13,7 +13,7 @@ namespace FileSystemViewer
             Console.CursorVisible = false;
             keys = new KeyAssign(logic);
             logic.Open();
-            ++logic.Position;
+            ++logic.SelectionPosition;
         }
         public void Run()
         {
@@ -21,7 +21,7 @@ namespace FileSystemViewer
             {
                 while (true)
                 {
-                    logic.WriteScreen();
+                    logic.ShowFileSystem();
                     keys.Read(Console.ReadKey().Key);
                 }
             }

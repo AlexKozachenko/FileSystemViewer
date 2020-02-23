@@ -5,32 +5,32 @@ namespace FileSystemViewer
 {
     internal class ProgramLogic
     {
-        private Stack<DefaultComponent> foldersOverTop = new Stack<DefaultComponent>();
-        private List<DefaultComponent> foldersUnderTop = new List<DefaultComponent>()
+        private Stack<DefaultComponent> hiddenOverTop = new Stack<DefaultComponent>();
+        private List<DefaultComponent> apparentUnderTop = new List<DefaultComponent>()
             {
                 new RootComponent()
             };
-        private int position = 0;
+        private int selectionPosition = 0;
 
-        private DefaultComponent Current => foldersUnderTop[Position];
+        private DefaultComponent Current => apparentUnderTop[SelectionPosition];
 
-        private int MaxFolderIndex => foldersUnderTop.Count - 1;
+        private int MaxFolderIndex => apparentUnderTop.Count - 1;
 
         private int MaxRowIndex => Console.WindowHeight - 1;
 
-        public int Position
+        public int SelectionPosition
         {
             get
             {
-                return position;
+                return selectionPosition;
             }
             set
             {
                 void PopInTop()
                 {
-                    if (foldersOverTop.Count > 0)
+                    if (hiddenOverTop.Count > 0)
                     {
-                        foldersUnderTop.Insert(0, foldersOverTop.Pop());
+                        apparentUnderTop.Insert(0, hiddenOverTop.Pop());
                     }
                 }
                 if (value < 0)
@@ -50,29 +50,29 @@ namespace FileSystemViewer
                 if (value > MaxRowIndex)
                 {
                     //PushTop:
-                    foldersOverTop.Push(foldersUnderTop[0]);
-                    foldersUnderTop.RemoveAt(0);
+                    hiddenOverTop.Push(apparentUnderTop[0]);
+                    apparentUnderTop.RemoveAt(0);
                     value = MaxRowIndex;
                 }
-                position = value;
+                selectionPosition = value;
             }
         }
 
         public void Close()
         {
-            Current.CloseContainer(foldersUnderTop, Position);
+            Current.CloseContainer(apparentUnderTop, SelectionPosition);
         }
 
         public void Open()
         {
-            Current.OpenContainer(foldersUnderTop, Position);
-            if (Position == MaxRowIndex && Current.IsOpen)
+            Current.OpenContainer(apparentUnderTop, SelectionPosition);
+            if (SelectionPosition == MaxRowIndex && Current.IsOpen)
             {
-                ++Position;
+                ++SelectionPosition;
             }
         }
 
-        public void WriteScreen()
+        public void ShowFileSystem()
         {
             void Write(ConsoleColor fontColor, string line)
             {
@@ -83,7 +83,7 @@ namespace FileSystemViewer
             Console.ResetColor();
             Console.Clear();
             int rowIndex = 0;
-            foreach (DefaultComponent folder in foldersUnderTop)
+            foreach (DefaultComponent folder in apparentUnderTop)
             {
                 Console.SetCursorPosition(0, rowIndex);
                 Write(ServiceColor, folder.Prefix);
@@ -94,7 +94,7 @@ namespace FileSystemViewer
                 }
                 ++rowIndex;
             }
-            Console.SetCursorPosition(Current.Offset, Position);
+            Console.SetCursorPosition(Current.Offset, SelectionPosition);
             Console.BackgroundColor = ServiceColor;
             Write(Current.Color, Current.Name);
         }

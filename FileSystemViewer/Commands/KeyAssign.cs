@@ -5,6 +5,7 @@ namespace FileSystemViewer
     internal class KeyAssign
     {
         private readonly AssignedKey[] keys;
+
         public KeyAssign(ProgramLogic logic)
         {
             keys = new AssignedKey[]
@@ -15,6 +16,7 @@ namespace FileSystemViewer
                 new AssignedKey(ConsoleKey.LeftArrow, new Close(logic)),
             };
         }
+
         public void Read(ConsoleKey input)
         {
             foreach (AssignedKey key in keys)

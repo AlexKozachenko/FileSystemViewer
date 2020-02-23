@@ -1,13 +1,14 @@
 ﻿namespace FileSystemViewer
 {
-    internal class MoveDown : DefaultKey, ICommand
+    internal class MoveDown : DefaultCommand
     {
         public MoveDown(ProgramLogic logic) : base(logic)
         {
         }
-        public void Execute()
+
+        public override void Execute()
         {
-            ++Logic.Position;
+            ++Logic.SelectionPosition;
         }
     }
 }

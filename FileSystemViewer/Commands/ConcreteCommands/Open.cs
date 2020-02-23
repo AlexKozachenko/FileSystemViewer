@@ -1,11 +1,12 @@
 ﻿namespace FileSystemViewer
 {
-    internal class Open : DefaultKey, ICommand
+    internal class Open : DefaultCommand
     { 
         public Open(ProgramLogic logic) : base(logic)
         {
         }
-        public void Execute()
+
+        public override void Execute()
         {
             Logic.Open();
         }

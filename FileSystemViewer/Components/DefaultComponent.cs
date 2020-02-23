@@ -13,13 +13,13 @@ namespace FileSystemViewer
             FullPath = fullPath;
         }
 
-        public static IList<DriveComponent> Children { get; } = new List<DriveComponent>();
+        protected static IList<DriveComponent> Children { get; } = new List<DriveComponent>();
 
         public abstract ConsoleColor Color { get; }
 
-        public virtual int Depth { get; protected set; }
+        public virtual int Depth { get; }
 
-        public string FullPath { get; protected set; } = "";
+        public string FullPath { get; } = "";
 
         protected virtual bool IsEmpty { get; set; }
 
@@ -27,7 +27,7 @@ namespace FileSystemViewer
 
         public string Name { get; protected set; }
 
-        public virtual int Offset { get; protected set; }
+        public virtual int Offset { get; }
 
         public virtual string Prefix { get; protected set; }
 

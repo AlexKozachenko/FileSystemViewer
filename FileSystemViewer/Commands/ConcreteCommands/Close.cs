@@ -1,11 +1,12 @@
 ﻿namespace FileSystemViewer
 {
-    internal class Close : DefaultKey, ICommand
-    {
+    internal class Close : DefaultCommand
+    { 
         public Close(ProgramLogic logic) : base(logic)
         {
         }
-        public void Execute()
+
+        public override void Execute()
         {
             Logic.Close();
         }
