@@ -3,9 +3,9 @@ using System.IO;
 
 namespace FileSystemViewer
 {
-    internal class Root : DefaultComponent
+    internal class RootComponent : DefaultComponent
     {
-        public Root()
+        public RootComponent()
         {
             Name = "ThisPC";
         }
@@ -16,9 +16,9 @@ namespace FileSystemViewer
         {
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
-                Children.Add(new DriveName(drive.Name));
+                Children.Add(new DriveComponent(drive.Name));
             }
-            DriveName.MarkLastContainer();
+            DriveComponent.MarkLastContainer();
         }
     }
 }

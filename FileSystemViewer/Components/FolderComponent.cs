@@ -3,15 +3,14 @@ using System.IO;
 
 namespace FileSystemViewer
 {
-    internal class FolderName : DriveName
+    internal class FolderComponent : DriveComponent
     {
         protected const string ThreeDot = "...";
 
-        public FolderName(string fullPath, string parentPrefix) : base(fullPath)
+        public FolderComponent(string fullPath, string parentPrefix) : base(fullPath)
         {
             FormatPrefix(parentPrefix);
         }
-
 
         public override ConsoleColor Color => ConsoleColor.Yellow;
 

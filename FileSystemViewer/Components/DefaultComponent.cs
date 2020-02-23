@@ -13,7 +13,7 @@ namespace FileSystemViewer
             FullPath = fullPath;
         }
 
-        public static IList<DriveName> Children { get; } = new List<DriveName>();
+        public static IList<DriveComponent> Children { get; } = new List<DriveComponent>();
 
         public abstract ConsoleColor Color { get; }
 

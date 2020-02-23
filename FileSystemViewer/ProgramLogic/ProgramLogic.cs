@@ -8,7 +8,7 @@ namespace FileSystemViewer
         private Stack<DefaultComponent> foldersOverTop = new Stack<DefaultComponent>();
         private List<DefaultComponent> foldersUnderTop = new List<DefaultComponent>()
             {
-                new Root()
+                new RootComponent()
             };
         private int position = 0;
 

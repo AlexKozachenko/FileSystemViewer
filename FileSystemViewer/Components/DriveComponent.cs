@@ -3,12 +3,12 @@ using System.IO;
 
 namespace FileSystemViewer
 {
-    internal class DriveName : DefaultComponent
+    internal class DriveComponent : DefaultComponent
     {
         protected const int DriveDepth = 1;
         protected const int StepOffset = 2;
 
-        public DriveName(string fullPath) : base(fullPath)
+        public DriveComponent(string fullPath) : base(fullPath)
 
         {
             SetName();
@@ -33,12 +33,12 @@ namespace FileSystemViewer
         {
             foreach (string directory in Directory.GetDirectories(FullPath))
             {
-                Children.Add(new FolderName(directory, Prefix));
+                Children.Add(new FolderComponent(directory, Prefix));
             }
             MarkLastContainer();
             foreach (string file in Directory.GetFiles(FullPath))
             {
-                Children.Add(new FileName(file, Prefix));
+                Children.Add(new FileComponent(file, Prefix));
             }
         }
 

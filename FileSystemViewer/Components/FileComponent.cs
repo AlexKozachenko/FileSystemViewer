@@ -3,7 +3,7 @@ using System.IO;
 
 namespace FileSystemViewer
 {
-    internal class FileName : FolderName
+    internal class FileComponent : FolderComponent
     {
         private enum Bytes : long
         {
@@ -12,7 +12,7 @@ namespace FileSystemViewer
             GB = 1024 * 1024 * 1024
         }
 
-        public FileName(string fullPath, string parentPrefix) : base(fullPath, parentPrefix)
+        public FileComponent(string fullPath, string parentPrefix) : base(fullPath, parentPrefix)
         {
         }
 

@@ -42,20 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\DefaultKey.cs" />
-    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Commands\DefaultKey.cs" />
+    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="ProgramLogic\ProgramLogic.cs" />
-    <Compile Include="Command\AssignedKey.cs" />
-    <Compile Include="Command\ConcreteCommands\Close.cs" />
-    <Compile Include="Command\ConcreteCommands\Open.cs" />
-    <Compile Include="Command\ConcreteCommands\MoveDown.cs" />
-    <Compile Include="Command\ConcreteCommands\MoveUp.cs" />
-    <Compile Include="Command\KeyAssign.cs" />
-    <Compile Include="Folder\DefaultComponent.cs" />
-    <Compile Include="Folder\DriveName.cs" />
-    <Compile Include="Folder\FileName.cs" />
-    <Compile Include="Folder\FolderName.cs" />
-    <Compile Include="Folder\Root.cs" />
+    <Compile Include="Commands\AssignedKey.cs" />
+    <Compile Include="Commands\ConcreteCommands\Close.cs" />
+    <Compile Include="Commands\ConcreteCommands\Open.cs" />
+    <Compile Include="Commands\ConcreteCommands\MoveDown.cs" />
+    <Compile Include="Commands\ConcreteCommands\MoveUp.cs" />
+    <Compile Include="Commands\KeyAssign.cs" />
+    <Compile Include="Components\DefaultComponent.cs" />
+    <Compile Include="Components\DriveComponent.cs" />
+    <Compile Include="Components\FileComponent.cs" />
+    <Compile Include="Components\FolderComponent.cs" />
+    <Compile Include="Components\RootComponent.cs" />
     <Compile Include="MainFileSystemViever.cs" />
     <Compile Include="FileSystemViewerRun.cs" />
     <Compile Include="Draft\ProgramLogic%28Procedure Edit%29.cs" />
