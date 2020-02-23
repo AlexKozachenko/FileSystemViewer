@@ -60,12 +60,12 @@ namespace FileSystemViewer
 
         public void Close()
         {
-            Current.CloseContainer(apparentUnderTop, SelectionPosition);
+            Current.CloseComponent(apparentUnderTop, SelectionPosition);
         }
 
         public void Open()
         {
-            Current.OpenContainer(apparentUnderTop, SelectionPosition);
+            Current.OpenComponent(apparentUnderTop, SelectionPosition);
             if (SelectionPosition == MaxRowIndex && Current.IsOpen)
             {
                 ++SelectionPosition;

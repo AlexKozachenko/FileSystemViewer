@@ -9,6 +9,7 @@ namespace FileSystemViewer
         KeyAssign keys;
         public FileSystemViewerRun()
         {
+            Console.Title = "FileSystemViever";
             Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
             Console.CursorVisible = false;
             keys = new KeyAssign(logic);

@@ -5,8 +5,11 @@ namespace FileSystemViewer
 {
     internal class RootComponent : DefaultComponent
     {
+        private const string RootFullPath = "";
+
         public RootComponent()
         {
+            FullPath = RootFullPath;
             Name = "ThisPC";
         }
 
