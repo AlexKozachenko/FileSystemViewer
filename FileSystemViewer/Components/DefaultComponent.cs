@@ -17,9 +17,9 @@ namespace FileSystemViewer
 
         public abstract ConsoleColor Color { get; }
 
-        public virtual int Depth { get; }
+        protected virtual int Depth { get; }
 
-        public string FullPath { get; protected set; }
+        protected string FullPath { get; set; }
     
         protected virtual bool IsEmpty { get; set; }
 
@@ -35,7 +35,8 @@ namespace FileSystemViewer
         {
             if (IsOpen)
             {
-                components.RemoveAll(folder => folder.FullPath.Contains(FullPath) && folder.FullPath != FullPath);
+                components.RemoveAll(folder => folder.FullPath.Contains(FullPath) 
+                    && folder.FullPath != FullPath);
                 IsOpen = false;
             }
         }

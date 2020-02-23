@@ -14,7 +14,7 @@ namespace FileSystemViewer
 
         public override ConsoleColor Color => ConsoleColor.Yellow;
 
-        public override int Depth => GetDepth();
+        protected override int Depth => GetDepth();
 
         protected int LastColumnIndex => Console.WindowWidth - 1;
 

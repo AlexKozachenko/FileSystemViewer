@@ -16,7 +16,7 @@ namespace FileSystemViewer
 
         public override ConsoleColor Color => ConsoleColor.Green;
 
-        public override int Depth => DriveDepth;
+        protected override int Depth => DriveDepth;
 
         public override int Offset => Depth * StepOffset;
 
