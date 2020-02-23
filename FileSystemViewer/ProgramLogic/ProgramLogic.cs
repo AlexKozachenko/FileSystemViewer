@@ -5,11 +5,11 @@ namespace FileSystemViewer
 {
     internal class ProgramLogic
     {
-        private Stack<DefaultComponent> hiddenOverTop = new Stack<DefaultComponent>();
         private List<DefaultComponent> apparentUnderTop = new List<DefaultComponent>()
             {
                 new RootComponent()
             };
+        private Stack<DefaultComponent> hiddenOverTop = new Stack<DefaultComponent>();
         private int selectionPosition = 0;
 
         private DefaultComponent Current => apparentUnderTop[SelectionPosition];
@@ -65,7 +65,7 @@ namespace FileSystemViewer
 
         public void Open()
         {
-            Current.OpenComponent(apparentUnderTop, SelectionPosition);
+            Current.OpenContainer(apparentUnderTop, SelectionPosition);
             if (SelectionPosition == MaxRowIndex && Current.IsOpen)
             {
                 ++SelectionPosition;

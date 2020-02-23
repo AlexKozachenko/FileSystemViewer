@@ -12,6 +12,5 @@ namespace FileSystemViewer
 
         public DefaultCommand Command { get; }
         public ConsoleKey Key { get; }
-
     }
 }

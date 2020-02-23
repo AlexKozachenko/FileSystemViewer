@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FileSystemViewer
 {
-    internal abstract class DefaultComponent 
+    internal abstract class DefaultComponent
     {
         public DefaultComponent()
         {
@@ -19,8 +19,8 @@ namespace FileSystemViewer
 
         protected virtual int Depth { get; }
 
-        protected string FullPath { get; set; }
-    
+        public string FullPath { get; protected set; } 
+
         protected virtual bool IsEmpty { get; set; }
 
         public bool IsOpen { get; protected set; }
@@ -35,15 +35,14 @@ namespace FileSystemViewer
         {
             if (IsOpen)
             {
-                components.RemoveAll(folder => folder.FullPath.Contains(FullPath) 
-                    && folder.FullPath != FullPath);
+                components.RemoveAll(folder => folder.FullPath.Contains(FullPath) && folder.FullPath != FullPath);
                 IsOpen = false;
             }
         }
 
         protected abstract void GetChildren();
 
-        public void OpenComponent(List<DefaultComponent> components, int position)
+        public void OpenContainer(List<DefaultComponent> components, int position)
         {
             //первый раз проверяется любая папка (не пустая по умолчанию, т.к. неизвестно, пустая она или нет),
             //если пустая, при следующем раскрытии процесс получения вложенных папок отменяется
