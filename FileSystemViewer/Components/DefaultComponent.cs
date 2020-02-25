@@ -13,7 +13,7 @@ namespace FileSystemViewer
             FullPath = fullPath;
         }
 
-        protected static IList<DriveComponent> Children { get; } = new List<DriveComponent>();
+        protected static List<DriveComponent> Children { get; } = new List<DriveComponent>();
 
         public abstract ConsoleColor Color { get; }
 
@@ -42,7 +42,7 @@ namespace FileSystemViewer
 
         protected abstract void GetChildren();
 
-        public void OpenContainer(List<DefaultComponent> components, int position)
+        public void OpenComponent(List<DefaultComponent> components, int position)
         {
             //первый раз проверяется любая папка (не пустая по умолчанию, т.к. неизвестно, пустая она или нет),
             //если пустая, при следующем раскрытии процесс получения вложенных папок отменяется

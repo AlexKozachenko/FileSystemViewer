@@ -1,14 +1,14 @@
 ﻿namespace FileSystemViewer
 {
-    internal class MoveUp : DefaultCommand
+    internal class MoveUp : Command
     {
-        public MoveUp(ProgramLogic logic) : base(logic)
+        public MoveUp(ProgramLogic fileViewer) : base(fileViewer)
         {
         }
 
         public override void Execute()
         {
-            --Logic.SelectionPosition;
+            --FileViewer.SelectionPosition;
         }
     }
 }

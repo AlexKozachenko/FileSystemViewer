@@ -65,7 +65,7 @@ namespace FileSystemViewer
 
         public void Open()
         {
-            Current.OpenContainer(apparentUnderTop, SelectionPosition);
+            Current.OpenComponent(apparentUnderTop, SelectionPosition);
             if (SelectionPosition == MaxRowIndex && Current.IsOpen)
             {
                 ++SelectionPosition;

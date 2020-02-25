@@ -5,16 +5,16 @@ namespace FileSystemViewer
 {
     internal class FileSystemViewerRun
     {
-        ProgramLogic logic = new ProgramLogic();
+        ProgramLogic fileViewer = new ProgramLogic();
         KeyAssign keys;
         public FileSystemViewerRun()
         {
             Console.Title = "FileSystemViever";
             Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
             Console.CursorVisible = false;
-            keys = new KeyAssign(logic);
-            logic.Open();
-            ++logic.SelectionPosition;
+            keys = new KeyAssign(fileViewer);
+            fileViewer.Open();
+            ++fileViewer.SelectionPosition;
         }
         public void Run()
         {
@@ -22,8 +22,8 @@ namespace FileSystemViewer
             {
                 while (true)
                 {
-                    logic.ShowFileSystem();
-                    keys.Read(Console.ReadKey().Key);
+                    fileViewer.ShowFileSystem();
+                    keys.ExecuteAssignedCommand(Console.ReadKey().Key);
                 }
             }
             catch (IOException)

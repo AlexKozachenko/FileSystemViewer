@@ -5,6 +5,8 @@ namespace FileSystemViewer
 {
     internal class FileComponent : FolderComponent
     {
+        private const string FilePrefix = "  ";
+
         private enum Bytes : long
         {
             KB = 1024,
@@ -20,7 +22,7 @@ namespace FileSystemViewer
 
         protected override bool IsEmpty => true;
 
-        public override string Prefix { get; protected set; } = "  ";
+        public override string Prefix { get; protected set; } = FilePrefix;
 
         protected override void CutName()
         {

@@ -4,13 +4,13 @@ namespace FileSystemViewer
 {
     internal class AssignedKey
     {
-        public AssignedKey(ConsoleKey key, DefaultCommand command)
+        public AssignedKey(ConsoleKey key, Command command)
         {
             Key = key;
             Command = command;
         }
 
-        public DefaultCommand Command { get; }
+        public Command Command { get; }
         public ConsoleKey Key { get; }
     }
 }

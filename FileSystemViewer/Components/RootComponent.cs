@@ -6,11 +6,12 @@ namespace FileSystemViewer
     internal class RootComponent : DefaultComponent
     {
         private const string RootFullPath = "";
+        private const string RootName = "ThisPC";
 
         public RootComponent()
         {
             FullPath = RootFullPath;
-            Name = "ThisPC";
+            Name = RootName;
         }
 
         public override ConsoleColor Color => ConsoleColor.Blue;
