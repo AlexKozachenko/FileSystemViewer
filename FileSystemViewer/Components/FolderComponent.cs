@@ -29,32 +29,39 @@ namespace FileSystemViewer
 
         protected void FormatPrefix(string parentPrefix)
         {
-            string prePrefix  = "";
+            const char VerticalConnectingLinePart = (char)0x2502;
+            const string Space = " ";
+            string character;
+            string prePrefix = "";
             for (int i = 0; prePrefix.Length < Offset - StepOffset; i += StepOffset)
             {
-                string character = " ";
                 //Предварительный префикс this по длине соотв. префиксу или смещению parent.
                 //Впервые появляется у первого поколения папок.
                 //Если символ в префиксе имени родителя ветвление или вертикальная черта, 
                 //в this на том же месте ставим верт. черту, 
                 //если пробел или угол - пробел. Верт. черта не может быть под углом или пробелом
-                if (parentPrefix[i] == (char)0x251C
-                    || parentPrefix[i] == (char)0x2502)
+                if (parentPrefix[i] == ContainerConnectingLinePart
+                        || parentPrefix[i] == VerticalConnectingLinePart)
                 {
-                    character = ((char)0x2502).ToString();
+                    character = VerticalConnectingLinePart.ToString();
+                }
+                else
+                {
+                    character = Space;
                 }
                 //сборка предварительного префикса
-                prePrefix += character + " ";
+                prePrefix += character + Space;
             }
             Prefix = prePrefix + Prefix;
         }
 
         protected int GetDepth()
         {
-            int slashesInPath = DriveDepth;
+            const char Slash = '\\';
+        int slashesInPath = DriveDepth;
             foreach (char character in FullPath)
             {
-                if (character == '\\')
+                if (character == Slash)
                 {
                     ++slashesInPath;
                 }

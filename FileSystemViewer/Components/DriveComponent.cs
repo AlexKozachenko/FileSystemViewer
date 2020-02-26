@@ -5,10 +5,9 @@ namespace FileSystemViewer
 {
     internal class DriveComponent : DefaultComponent
     {
-        private const char ContainerMarker = (char)0x251C;
         protected const int DriveDepth = 1;
         private const char Hyphen = (char)0x2500;
-        private const char LastContainerMarker = (char)0x2514;
+        protected const char ContainerConnectingLinePart = (char)0x251C;
         protected const int StepOffset = 2;
 
         public DriveComponent(string fullPath) : base(fullPath)
@@ -23,7 +22,7 @@ namespace FileSystemViewer
 
         public override int Offset => Depth * StepOffset;
 
-        public override string Prefix { get; protected set; } = ContainerMarker.ToString() + Hyphen;
+        public override string Prefix { get; protected set; } = ContainerConnectingLinePart.ToString() + Hyphen;
 
         public static void MarkLastContainer()
         {
@@ -48,7 +47,8 @@ namespace FileSystemViewer
 
         private void SetLastContainerPrefix()
         {
-            Prefix = Prefix.Replace(ContainerMarker, LastContainerMarker);
+            const char LastContainerConnectingLinePart = (char)0x2514;
+            Prefix = Prefix.Replace(ContainerConnectingLinePart, LastContainerConnectingLinePart);
         }
 
         protected virtual void SetName()
