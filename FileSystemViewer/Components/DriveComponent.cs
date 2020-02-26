@@ -7,11 +7,10 @@ namespace FileSystemViewer
     {
         protected const int DriveDepth = 1;
         private const char Hyphen = (char)0x2500;
-        protected const char ContainerConnectingLinePart = (char)0x251C;
         protected const int StepOffset = 2;
+        protected const char T_ConnectingPart = (char)0x251C;
 
         public DriveComponent(string fullPath) : base(fullPath)
-
         {
             SetName();
         }
@@ -22,7 +21,7 @@ namespace FileSystemViewer
 
         public override int Offset => Depth * StepOffset;
 
-        public override string Prefix { get; protected set; } = ContainerConnectingLinePart.ToString() + Hyphen;
+        public override string Prefix { get; protected set; } = T_ConnectingPart.ToString() + Hyphen;
 
         public static void MarkLastContainer()
         {
@@ -34,21 +33,24 @@ namespace FileSystemViewer
 
         protected override void GetChildren()
         {
-            foreach (string directory in Directory.GetDirectories(FullPath))
+            if (Directory.Exists(FullPath))
             {
-                Children.Add(new FolderComponent(directory, Prefix));
-            }
-            MarkLastContainer();
-            foreach (string file in Directory.GetFiles(FullPath))
-            {
-                Children.Add(new FileComponent(file, Prefix));
+                foreach (string directory in Directory.GetDirectories(FullPath))
+                {
+                    Children.Add(new FolderComponent(directory, Prefix));
+                }
+                MarkLastContainer();
+                foreach (string file in Directory.GetFiles(FullPath))
+                {
+                    Children.Add(new FileComponent(file, Prefix));
+                }
             }
         }
 
         private void SetLastContainerPrefix()
         {
-            const char LastContainerConnectingLinePart = (char)0x2514;
-            Prefix = Prefix.Replace(ContainerConnectingLinePart, LastContainerConnectingLinePart);
+            const char L_ConnectingPart = (char)0x2514;
+            Prefix = Prefix.Replace(T_ConnectingPart, L_ConnectingPart);
         }
 
         protected virtual void SetName()
