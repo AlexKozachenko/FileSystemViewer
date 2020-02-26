@@ -29,7 +29,7 @@ namespace FileSystemViewer
 
         protected void FormatPrefix(string parentPrefix)
         {
-            const char VerticalConnectingPart = (char)0x2502;
+            const char I_ConnectingPart = (char)0x2502;
             const string Space = " ";
             string character;
             string prePrefix = "";
@@ -41,9 +41,9 @@ namespace FileSystemViewer
                 //в this на том же месте ставим верт. черту, 
                 //если пробел или угол - пробел. Верт. черта не может быть под углом или пробелом
                 if (parentPrefix[i] == T_ConnectingPart
-                        || parentPrefix[i] == VerticalConnectingPart)
+                        || parentPrefix[i] == I_ConnectingPart)
                 {
-                    character = VerticalConnectingPart.ToString();
+                    character = I_ConnectingPart.ToString();
                 }
                 else
                 {
