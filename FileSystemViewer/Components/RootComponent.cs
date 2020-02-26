@@ -1,15 +1,14 @@
-﻿using System;
+﻿using static FileSystemViewer.Components.Literals;
+using System;
 using System.IO;
 
-namespace FileSystemViewer
+namespace FileSystemViewer.Components
 {
     internal class RootComponent : DefaultComponent
     {
         public RootComponent()
         {
-            const string RootFullPath = "";
-            const string RootName = "ThisPC";
-            FullPath = RootFullPath;
+            FullPath = Slash.ToString();
             Name = RootName;
         }
 

@@ -1,15 +1,11 @@
-﻿using System;
+﻿using static FileSystemViewer.Components.Literals;
+using System;
 using System.IO;
 
-namespace FileSystemViewer
+namespace FileSystemViewer.Components
 {
     internal class DriveComponent : DefaultComponent
     {
-        protected const int DriveDepth = 1;
-        private const char Hyphen = (char)0x2500;
-        protected const int StepOffset = 2;
-        protected const char T_ConnectingPart = (char)0x251C;
-
         public DriveComponent(string fullPath) : base(fullPath)
         {
             SetName();
@@ -49,7 +45,6 @@ namespace FileSystemViewer
 
         private void SetLastContainerPrefix()
         {
-            const char L_ConnectingPart = (char)0x2514;
             Prefix = Prefix.Replace(T_ConnectingPart, L_ConnectingPart);
         }
 

@@ -1,4 +1,4 @@
-﻿namespace FileSystemViewer
+﻿namespace FileSystemViewer.Commands
 {
     internal abstract class Command
     {

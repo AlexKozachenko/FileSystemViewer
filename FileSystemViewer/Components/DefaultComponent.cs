@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FileSystemViewer
+namespace FileSystemViewer.Components
 {
     internal abstract class DefaultComponent
     {
@@ -19,7 +19,7 @@ namespace FileSystemViewer
 
         protected virtual int Depth { get; }
 
-        public string FullPath { get; protected set; } 
+        public string FullPath { get; protected set; }
 
         protected virtual bool IsEmpty { get; set; }
 

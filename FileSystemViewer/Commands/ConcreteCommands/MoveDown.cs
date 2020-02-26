@@ -1,4 +1,4 @@
-﻿namespace FileSystemViewer
+﻿namespace FileSystemViewer.Commands.ConcreteCommands
 {
     internal class MoveDown : Command
     {

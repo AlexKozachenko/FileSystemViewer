@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileSystemViewer.Commands;
+using System;
 using System.IO;
 
 namespace FileSystemViewer

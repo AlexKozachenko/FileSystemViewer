@@ -1,7 +1,8 @@
-﻿using System;
+﻿using static FileSystemViewer.Components.Literals;
+using System;
 using System.IO;
 
-namespace FileSystemViewer
+namespace FileSystemViewer.Components
 {
     internal class FileComponent : FolderComponent
     {

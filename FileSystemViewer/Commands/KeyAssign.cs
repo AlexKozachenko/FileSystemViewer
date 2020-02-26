@@ -1,6 +1,7 @@
-﻿using System;
+﻿using FileSystemViewer.Commands.ConcreteCommands;
+using System;
 
-namespace FileSystemViewer
+namespace FileSystemViewer.Commands
 {
     internal class KeyAssign 
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FileSystemViewer
+namespace FileSystemViewer.Commands
 {
     internal class AssignedKey
     {
