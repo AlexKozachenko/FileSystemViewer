@@ -29,17 +29,14 @@ namespace FileSystemViewer.Components
 
         protected override void GetChildren()
         {
-            if (Directory.Exists(FullPath))
+            foreach (string directory in Directory.GetDirectories(FullPath))
             {
-                foreach (string directory in Directory.GetDirectories(FullPath))
-                {
-                    Children.Add(new FolderComponent(directory, Prefix));
-                }
-                MarkLastContainer();
-                foreach (string file in Directory.GetFiles(FullPath))
-                {
-                    Children.Add(new FileComponent(file, Prefix));
-                }
+                Children.Add(new FolderComponent(directory, Prefix));
+            }
+            MarkLastContainer();
+            foreach (string file in Directory.GetFiles(FullPath))
+            {
+                Children.Add(new FileComponent(file, Prefix));
             }
         }
 

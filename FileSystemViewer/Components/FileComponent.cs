@@ -6,8 +6,6 @@ namespace FileSystemViewer.Components
 {
     internal class FileComponent : FolderComponent
     {
-        private const string FilePrefix = "  ";
-
         private enum Bytes : long
         {
             KB = 1024,

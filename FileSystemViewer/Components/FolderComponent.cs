@@ -54,15 +54,15 @@ namespace FileSystemViewer.Components
 
         protected int GetDepth()
         {
-            int slashesInPath = DriveDepth;
+            int depth = DriveDepth;
             foreach (char character in FullPath)
             {
                 if (character == Slash)
                 {
-                    ++slashesInPath;
+                    ++depth;
                 }
             }
-            return slashesInPath;
+            return depth;
         }
 
         protected override void SetName()

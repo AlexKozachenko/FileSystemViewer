@@ -80,10 +80,10 @@ namespace FileSystemViewer
                 Console.ForegroundColor = fontColor;
                 Console.Write(line);
             }
-            const ConsoleColor ServiceColor = ConsoleColor.DarkGray;
             Console.ResetColor();
             Console.Clear();
             int rowIndex = 0;
+            const ConsoleColor ServiceColor = ConsoleColor.DarkGray;
             foreach (DefaultComponent folder in apparentUnderTop)
             {
                 Console.SetCursorPosition(0, rowIndex);
