@@ -40,8 +40,7 @@ namespace FileSystemViewer.Components
         private string Size()
         {
             string fileSize = "";
-            long size = 0;
-            size = new FileInfo(FullPath).Length;
+            long size = new FileInfo(FullPath).Length;
             if (size < (long)Bytes.KB)
             {
                 fileSize = " (" + size.ToString() + " B)";
