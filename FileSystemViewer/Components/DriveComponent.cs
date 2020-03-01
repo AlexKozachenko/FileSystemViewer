@@ -7,7 +7,6 @@ namespace FileSystemViewer.Components
     {
         protected const int DriveDepth = 1;
         private const char Hyphen = (char)0x2500;
-        protected const char L_ConnectingPart = (char)0x2514;
         protected const int StepOffset = 2;
         protected const char T_ConnectingPart = (char)0x251C;
 
@@ -26,28 +25,28 @@ namespace FileSystemViewer.Components
 
         public static void MarkLastContainer()
         {
-            if (Children.Count > 0)
+            const char L_ConnectingPart = (char)0x2514;
+            if (!ChildrenIsEmpty)
             {
-                Children[Children.Count - 1].SetLastContainerPrefix();
+                DriveComponent lastContainer = Children[Children.Count - 1];
+                lastContainer.Prefix = lastContainer.Prefix.Replace(T_ConnectingPart, L_ConnectingPart);
             }
         }
 
         protected override void GetChildren()
         {
-            foreach (string directory in Directory.GetDirectories(FullPath))
-            {
-                Children.Add(new FolderComponent(directory, Prefix));
+            if (Directory.Exists(FullPath))
+                {
+                foreach (string directory in Directory.GetDirectories(FullPath))
+                {
+                    Children.Add(new FolderComponent(directory, Prefix));
+                }
+                MarkLastContainer();
+                foreach (string file in Directory.GetFiles(FullPath))
+                {
+                    Children.Add(new FileComponent(file, Prefix));
+                }
             }
-            MarkLastContainer();
-            foreach (string file in Directory.GetFiles(FullPath))
-            {
-                Children.Add(new FileComponent(file, Prefix));
-            }
-        }
-
-        private void SetLastContainerPrefix()
-        {
-            Prefix = Prefix.Replace(T_ConnectingPart, L_ConnectingPart);
         }
 
         protected virtual void SetName()

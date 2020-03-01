@@ -67,6 +67,7 @@ namespace FileSystemViewer
         public void Open()
         {
             Current.OpenComponent(componentstUnderTop, SelectionPosition);
+            //смещение на 1 строку вниз, если открывается папка на последней строке
             if (SelectionPosition == MaxRowIndex && Current.IsOpen)
             {
                 ++SelectionPosition;
