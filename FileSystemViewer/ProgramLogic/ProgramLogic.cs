@@ -6,16 +6,16 @@ namespace FileSystemViewer
 {
     internal class ProgramLogic
     {
-        private List<DefaultComponent> apparentUnderTop = new List<DefaultComponent>()
+        private List<DefaultComponent> componentstUnderTop = new List<DefaultComponent>()
             {
                 new RootComponent()
             };
         private Stack<DefaultComponent> hiddenOverTop = new Stack<DefaultComponent>();
         private int selectionPosition = 0;
 
-        private DefaultComponent Current => apparentUnderTop[SelectionPosition];
+        private DefaultComponent Current => componentstUnderTop[SelectionPosition];
 
-        private int MaxFolderIndex => apparentUnderTop.Count - 1;
+        private int MaxFolderIndex => componentstUnderTop.Count - 1;
 
         private int MaxRowIndex => Console.WindowHeight - 1;
 
@@ -31,7 +31,7 @@ namespace FileSystemViewer
                 {
                     if (hiddenOverTop.Count > 0)
                     {
-                        apparentUnderTop.Insert(0, hiddenOverTop.Pop());
+                        componentstUnderTop.Insert(0, hiddenOverTop.Pop());
                     }
                 }
                 if (value < 0)
@@ -51,8 +51,8 @@ namespace FileSystemViewer
                 if (value > MaxRowIndex)
                 {
                     //PushTop:
-                    hiddenOverTop.Push(apparentUnderTop[0]);
-                    apparentUnderTop.RemoveAt(0);
+                    hiddenOverTop.Push(componentstUnderTop[0]);
+                    componentstUnderTop.RemoveAt(0);
                     value = MaxRowIndex;
                 }
                 selectionPosition = value;
@@ -61,12 +61,12 @@ namespace FileSystemViewer
 
         public void Close()
         {
-            Current.CloseComponent(apparentUnderTop, SelectionPosition);
+            Current.CloseComponent(componentstUnderTop, SelectionPosition);
         }
 
         public void Open()
         {
-            Current.OpenComponent(apparentUnderTop, SelectionPosition);
+            Current.OpenComponent(componentstUnderTop, SelectionPosition);
             if (SelectionPosition == MaxRowIndex && Current.IsOpen)
             {
                 ++SelectionPosition;
@@ -84,7 +84,7 @@ namespace FileSystemViewer
             Console.Clear();
             int rowIndex = 0;
             const ConsoleColor ServiceColor = ConsoleColor.DarkGray;
-            foreach (DefaultComponent folder in apparentUnderTop)
+            foreach (DefaultComponent folder in componentstUnderTop)
             {
                 Console.SetCursorPosition(0, rowIndex);
                 Write(ServiceColor, folder.Prefix);

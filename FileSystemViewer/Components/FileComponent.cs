@@ -1,12 +1,13 @@
-﻿using static FileSystemViewer.Components.Literals;
-using System;
+﻿using System;
 using System.IO;
 
 namespace FileSystemViewer.Components
 {
     internal class FileComponent : FolderComponent
     {
-        private enum Bytes : long
+        private const string FilePrefix = "  ";
+        
+            private enum Bytes : long
         {
             KB = 1024,
             MB = 1024 * 1024,

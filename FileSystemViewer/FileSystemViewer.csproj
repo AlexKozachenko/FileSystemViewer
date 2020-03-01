@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Components\Literals.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ProgramLogic\ProgramLogic.cs" />
     <Compile Include="Commands\AssignedKey.cs" />

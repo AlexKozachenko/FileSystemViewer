@@ -1,11 +1,12 @@
-﻿using static FileSystemViewer.Components.Literals;
-using System;
+﻿using System;
 using System.IO;
 
 namespace FileSystemViewer.Components
 {
     internal class FolderComponent : DriveComponent
     {
+        protected const string ThreeDot = "...";
+
         public FolderComponent(string fullPath, string parentPrefix) : base(fullPath)
         {
             FormatPrefix(parentPrefix);
@@ -28,6 +29,8 @@ namespace FileSystemViewer.Components
 
         protected void FormatPrefix(string parentPrefix)
         {
+            const char I_ConnectingPart = (char)0x2502;
+            const string Space = " ";
             string character;
             string prePrefix = "";
             for (int i = 0; prePrefix.Length < Offset - StepOffset; i += StepOffset)
@@ -54,10 +57,11 @@ namespace FileSystemViewer.Components
 
         protected int GetDepth()
         {
+            const char BackSlash = '\\';
             int depth = DriveDepth;
             foreach (char character in FullPath)
             {
-                if (character == Slash)
+                if (character == BackSlash)
                 {
                     ++depth;
                 }
