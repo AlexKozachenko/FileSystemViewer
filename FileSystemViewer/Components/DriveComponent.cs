@@ -26,7 +26,7 @@ namespace FileSystemViewer.Components
         public static void MarkLastContainer()
         {
             const char L_ConnectingPart = (char)0x2514;
-            if (!ChildrenIsEmpty)
+            if (ChildrenIsNotEmpty)
             {
                 DriveComponent lastContainer = Children[Children.Count - 1];
                 lastContainer.Prefix = lastContainer.Prefix.Replace(T_ConnectingPart, L_ConnectingPart);
@@ -36,7 +36,7 @@ namespace FileSystemViewer.Components
         protected override void GetChildren()
         {
             if (Directory.Exists(FullPath))
-                {
+            {
                 foreach (string directory in Directory.GetDirectories(FullPath))
                 {
                     Children.Add(new FolderComponent(directory, Prefix));
