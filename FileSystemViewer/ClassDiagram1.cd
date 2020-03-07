@@ -1,83 +1,93 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="FileSystemViewer.AssignedKey" Collapsed="true">
+  <Class Name="FileSystemViewer.Commands.AssignedKey" Collapsed="true">
     <Position X="10" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Commands\AssignedKey.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.Command" Collapsed="true">
+  <Class Name="FileSystemViewer.Commands.Command" Collapsed="true">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Commands\Command.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.Close" Collapsed="true">
+  <Class Name="FileSystemViewer.Commands.ConcreteCommands.Close" Collapsed="true">
     <Position X="5.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Commands\ConcreteCommands\Close.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.MoveDown" Collapsed="true">
+  <Class Name="FileSystemViewer.Commands.ConcreteCommands.MoveDown" Collapsed="true">
     <Position X="7.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Commands\ConcreteCommands\MoveDown.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.MoveUp" Collapsed="true">
+  <Class Name="FileSystemViewer.Commands.ConcreteCommands.MoveUp" Collapsed="true">
     <Position X="0.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Commands\ConcreteCommands\MoveUp.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.Open" Collapsed="true">
+  <Class Name="FileSystemViewer.Commands.ConcreteCommands.Open" Collapsed="true">
     <Position X="3" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Commands\ConcreteCommands\Open.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.KeyAssign" Collapsed="true">
+  <Class Name="FileSystemViewer.Commands.KeyAssign" Collapsed="true">
     <Position X="13.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Commands\KeyAssign.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.DefaultComponent" Collapsed="true">
+  <Class Name="FileSystemViewer.Components.DefaultComponent" Collapsed="true">
     <Position X="1.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>KABAAAAAAEAAAAAAAAAEAAQCAAAAQAAgAAAAgAAAgAA=</HashCode>
+      <HashCode>KABAAAAAAUAAAAAAAAAEAAQCAAAAQAAgAAAAgAAAgAA=</HashCode>
       <FileName>Components\DefaultComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.DriveComponent" Collapsed="true">
+  <Class Name="FileSystemViewer.Components.DriveComponent" Collapsed="true">
     <Position X="0.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAACAAABAAAAAADAAAAQAQgEAAAwAAAgAA=</HashCode>
+      <HashCode>AAAAAAAAAAAACAAABAAAAAADAAAAQAQgEAAAwAAAgAA=</HashCode>
       <FileName>Components\DriveComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.FileComponent" Collapsed="true">
+  <Class Name="FileSystemViewer.Components.FileComponent" Collapsed="true">
     <Position X="0.5" Y="7.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="FileSystemViewer.Components.FileComponent.Bytes">
+        <TypeIdentifier>
+          <NewMemberFileName>Components\FileComponent.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAgAAABAAAAAACAAAAAAAACAAAgAAAAAA=</HashCode>
       <FileName>Components\FileComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.FolderComponent" Collapsed="true">
-    <Position X="0.5" Y="6.25" Width="1.5" />
+  <Class Name="FileSystemViewer.Components.FolderComponent" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAKAAAAAAAAAAAABAAAAwAAAAAAAAAgAAAAwAAAAAA=</HashCode>
       <FileName>Components\FolderComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FileSystemViewer.RootComponent" Collapsed="true">
+  <Class Name="FileSystemViewer.Components.RootComponent" Collapsed="true">
     <Position X="2.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAgAAAAAA=</HashCode>
@@ -101,7 +111,7 @@
   <Class Name="FileSystemViewer.ProgramLogic" Collapsed="true">
     <Position X="11.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAAAAIAAABACAAAACAAAAAAACIAAAAACAQIA=</HashCode>
+      <HashCode>AACAAAAAAAAAIAAABACAAAACAAAAAgACIAAAAACAAIA=</HashCode>
       <FileName>ProgramLogic\ProgramLogic.cs</FileName>
     </TypeIdentifier>
   </Class>

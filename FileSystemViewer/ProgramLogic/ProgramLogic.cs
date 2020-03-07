@@ -6,16 +6,16 @@ namespace FileSystemViewer
 {
     internal class ProgramLogic
     {
-        private List<DefaultComponent> componentstUnderTop = new List<DefaultComponent>()
+        private List<DefaultComponent> componentsUnderTop = new List<DefaultComponent>()
             {
                 new RootComponent()
             };
         private Stack<DefaultComponent> hiddenOverTop = new Stack<DefaultComponent>();
         private int selectionPosition = 0;
 
-        private DefaultComponent Current => componentstUnderTop[SelectionPosition];
+        private DefaultComponent Current => componentsUnderTop[SelectionPosition];
 
-        private int MaxFolderIndex => componentstUnderTop.Count - 1;
+        private int MaxFolderIndex => componentsUnderTop.Count - 1;
 
         private int MaxRowIndex => Console.WindowHeight - 1;
 
@@ -31,7 +31,7 @@ namespace FileSystemViewer
                 {
                     if (hiddenOverTop.Count > 0)
                     {
-                        componentstUnderTop.Insert(0, hiddenOverTop.Pop());
+                        componentsUnderTop.Insert(0, hiddenOverTop.Pop());
                     }
                 }
                 if (value < 0)
@@ -51,8 +51,8 @@ namespace FileSystemViewer
                 if (value > MaxRowIndex)
                 {
                     //PushTop:
-                    hiddenOverTop.Push(componentstUnderTop[0]);
-                    componentstUnderTop.RemoveAt(0);
+                    hiddenOverTop.Push(componentsUnderTop[0]);
+                    componentsUnderTop.RemoveAt(0);
                     value = MaxRowIndex;
                 }
                 selectionPosition = value;
@@ -61,13 +61,13 @@ namespace FileSystemViewer
 
         public void Close()
         {
-            Current.CloseComponent(componentstUnderTop, SelectionPosition);
+            Current.CloseComponent(componentsUnderTop, SelectionPosition);
         }
 
         public void Open()
         {
-            Current.OpenComponent(componentstUnderTop, SelectionPosition);
-            //смещение на 1 строку вниз, если открывается папка на последней строке
+            Current.OpenComponent(componentsUnderTop, SelectionPosition);
+            //автосмещение на 1 строку вниз, если открывается папка на последней строке
             if (SelectionPosition == MaxRowIndex && Current.IsOpen)
             {
                 ++SelectionPosition;
@@ -85,7 +85,7 @@ namespace FileSystemViewer
             Console.Clear();
             int rowIndex = 0;
             const ConsoleColor ServiceColor = ConsoleColor.DarkGray;
-            foreach (DefaultComponent folder in componentstUnderTop)
+            foreach (DefaultComponent folder in componentsUnderTop)
             {
                 Console.SetCursorPosition(0, rowIndex);
                 Write(ServiceColor, folder.Prefix);

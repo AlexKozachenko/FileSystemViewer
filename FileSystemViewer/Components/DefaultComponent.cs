@@ -8,10 +8,7 @@ namespace FileSystemViewer.Components
         public DefaultComponent()
         {
         }
-        public DefaultComponent(string fullPath)
-        {
-            FullPath = fullPath;
-        }
+        public DefaultComponent(string fullPath) => FullPath = fullPath;
 
         protected static IList<DriveComponent> Children { get; } = new List<DriveComponent>();
 

@@ -4,10 +4,7 @@
     {
         public ProgramLogic FileViewer { get; }
 
-        public Command(ProgramLogic fileViewer)
-        {
-            FileViewer = fileViewer;
-        }
+        public Command(ProgramLogic fileViewer) => FileViewer = fileViewer;
 
         public abstract void Execute();
     }

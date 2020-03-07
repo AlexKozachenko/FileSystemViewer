@@ -5,14 +5,14 @@ namespace FileSystemViewer.Components
 {
     internal class FileComponent : FolderComponent
     {
-        private const string FilePrefix = "  ";
-        
-            private enum Bytes : long
+        private enum Bytes : long
         {
             KB = 1024,
             MB = 1024 * 1024,
             GB = 1024 * 1024 * 1024
         }
+
+        private const string FilePrefix = "  ";
 
         public FileComponent(string fullPath, string parentPrefix) : base(fullPath, parentPrefix)
         {

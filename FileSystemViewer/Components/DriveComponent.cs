@@ -10,10 +10,7 @@ namespace FileSystemViewer.Components
         protected const int StepOffset = 2;
         protected const char T_ConnectingPart = (char)0x251C;
 
-        public DriveComponent(string fullPath) : base(fullPath)
-        {
-            SetName();
-        }
+        public DriveComponent(string fullPath) : base(fullPath) => SetName();
 
         public override ConsoleColor Color => ConsoleColor.Green;
 
@@ -49,9 +46,6 @@ namespace FileSystemViewer.Components
             }
         }
 
-        protected virtual void SetName()
-        {
-            Name = FullPath;
-        }
+        protected virtual void SetName() => Name = FullPath;
     }
 }
