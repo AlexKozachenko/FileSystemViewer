@@ -52,7 +52,7 @@
   <Class Name="FileSystemViewer.Components.DefaultComponent" Collapsed="true">
     <Position X="1.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>KABAAAAAAUAAAAAAAAAEAAQCAAAAQAAgAAAAgAAAgAA=</HashCode>
+      <HashCode>KABAAAAAAUAAAAAAAAAEAAQCAAAAQAAAAAAAgAAAgAA=</HashCode>
       <FileName>Components\DefaultComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -111,7 +111,7 @@
   <Class Name="FileSystemViewer.ProgramLogic" Collapsed="true">
     <Position X="11.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAAAAIAAABACAAAACAAAAAgACIAAAAACAAIA=</HashCode>
+      <HashCode>AACAAAAAEAAAIAAABACAAAACAAAAAAACIAAAAACAAIA=</HashCode>
       <FileName>ProgramLogic\ProgramLogic.cs</FileName>
     </TypeIdentifier>
   </Class>

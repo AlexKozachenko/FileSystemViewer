@@ -16,8 +16,6 @@ namespace FileSystemViewer.Components
 
         public abstract ConsoleColor Color { get; }
 
-        protected virtual int Depth { get; }
-
         protected string FullPath { get; set; }
 
         protected virtual bool IsEmpty { get; set; }
