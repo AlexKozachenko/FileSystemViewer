@@ -22,10 +22,10 @@ namespace FileSystemViewer.Components
 
         protected override void CutName()
         {
-            int cut = LastColumnIndex - Offset - Size().Length - ThreeDot.Length;
+            int cut = LastColumnIndex - Offset - Size().Length - Ellipsis.Length;
             if (Name.Length > cut)
             {
-                Name = Name.Remove(cut) + ThreeDot + Size();
+                Name = Name.Remove(cut) + Ellipsis + Size();
             }
             else
             {

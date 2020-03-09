@@ -5,7 +5,7 @@ namespace FileSystemViewer.Components
 {
     internal class FolderComponent : DriveComponent
     {
-        protected const string ThreeDot = "...";
+        protected const string Ellipsis = "...";
 
         public FolderComponent(string fullPath, string parentPrefix) : base(fullPath) => FormatPrefix(parentPrefix);
 
@@ -17,21 +17,22 @@ namespace FileSystemViewer.Components
 
         protected virtual void CutName()
         {
-            int cut = LastColumnIndex - Offset - ThreeDot.Length;
+            int cut = LastColumnIndex - Offset - Ellipsis.Length;
             if (Name.Length > cut)
             {
-                Name = Name.Remove(cut) + ThreeDot;
+                Name = Name.Remove(cut) + Ellipsis;
             }
         }
 
         protected void FormatPrefix(string parentPrefix)
         {
             const char I_ConnectingPart = (char)0x2502;
+            const string EmptyString = "";
             const string Space = " ";
-            string prePrefix = "";
+            string character;
+            string prePrefix = EmptyString;
             for (int i = 0; prePrefix.Length < Offset - StepOffset; i += StepOffset)
             {
-                string character = Space;
                 //Предварительный префикс this по длине соотв. префиксу или смещению parent.
                 //Впервые появляется у первого поколения папок.
                 //Если символ в префиксе имени родителя ветвление или вертикальная черта, 
@@ -40,6 +41,10 @@ namespace FileSystemViewer.Components
                 if (parentPrefix[i] == T_ConnectingPart || parentPrefix[i] == I_ConnectingPart)
                 {
                     character = I_ConnectingPart.ToString();
+                }
+                else
+                {
+                    character = Space;
                 }
                 //сборка предварительного префикса
                 prePrefix += character + Space;
