@@ -1,12 +1,11 @@
-﻿using System;
+﻿using static FileSystemViewer.Components.Literals;
+using System;
 using System.IO;
 
 namespace FileSystemViewer.Components
 {
     internal class FolderComponent : DriveComponent
     {
-        protected const string Ellipsis = "...";
-
         public FolderComponent(string fullPath, string parentPrefix) : base(fullPath) => FormatPrefix(parentPrefix);
 
         public override ConsoleColor Color => ConsoleColor.Yellow;
@@ -26,9 +25,6 @@ namespace FileSystemViewer.Components
 
         protected void FormatPrefix(string parentPrefix)
         {
-            const char I_ConnectingPart = (char)0x2502;
-            const string EmptyString = "";
-            const string Space = " ";
             string character;
             string prePrefix = EmptyString;
             for (int i = 0; prePrefix.Length < Offset - StepOffset; i += StepOffset)
@@ -38,9 +34,9 @@ namespace FileSystemViewer.Components
                 //Если символ в префиксе имени родителя ветвление или вертикальная черта, 
                 //в this на том же месте ставим верт. черту, 
                 //если пробел или угол - пробел. Верт. черта не может быть под углом или пробелом
-                if (parentPrefix[i] == T_ConnectingPart || parentPrefix[i] == I_ConnectingPart)
+                if (parentPrefix[i] == ConnectingPart_T || parentPrefix[i] == ConnectingPart_I)
                 {
-                    character = I_ConnectingPart.ToString();
+                    character = ConnectingPart_I.ToString();
                 }
                 else
                 {
@@ -54,7 +50,6 @@ namespace FileSystemViewer.Components
 
         protected int GetDepth()
         {
-            const char BackSlash = '\\';
             int depth = DriveDepth;
             foreach (char character in FullPath)
             {

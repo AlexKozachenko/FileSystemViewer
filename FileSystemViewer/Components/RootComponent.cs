@@ -1,4 +1,5 @@
-﻿using System;
+﻿using static FileSystemViewer.Components.Literals;
+using System;
 using System.IO;
 
 namespace FileSystemViewer.Components
@@ -7,9 +8,7 @@ namespace FileSystemViewer.Components
     {
         public RootComponent()
         {
-            const string RootFullPath = "";
-            const string RootName = "ThisPC";
-            FullPath = RootFullPath;
+            FullPath = EmptyString;
             Name = RootName;
         }
 

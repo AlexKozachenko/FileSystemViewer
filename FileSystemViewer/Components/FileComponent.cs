@@ -1,18 +1,17 @@
-﻿using System;
+﻿using static FileSystemViewer.Components.Literals;
+using System;
 using System.IO;
 
 namespace FileSystemViewer.Components
 {
     internal class FileComponent : FolderComponent
     {
-        private enum Bytes : long
+        private enum FileSize : long
         {
             KB = 1024,
             MB = 1024 * 1024,
             GB = 1024 * 1024 * 1024
         }
-
-        private const string FilePrefix = "  ";
 
         public FileComponent(string fullPath, string parentPrefix) : base(fullPath, parentPrefix) => IsEmpty = true;
 
@@ -22,38 +21,44 @@ namespace FileSystemViewer.Components
 
         protected override void CutName()
         {
-            int cut = LastColumnIndex - Offset - Size().Length - Ellipsis.Length;
+            string fileLength = GetFileLength();
+            int cut = LastColumnIndex - Offset - fileLength.Length - Ellipsis.Length;
             if (Name.Length > cut)
             {
-                Name = Name.Remove(cut) + Ellipsis + Size();
+                Name = Name.Remove(cut) + Ellipsis + fileLength;
             }
             else
             {
-                Name = Name + Size();
+                Name = Name + fileLength;
             }
         }
 
-        private string Size()
+        private string GetFileLength()
         {
-            string fileSize = "";
-            long size = new FileInfo(FullPath).Length;
-            if (size < (long)Bytes.KB)
+            string fileLength = EmptyString;
+            long length = new FileInfo(FullPath).Length;
+            void GetLength(string size, string bytes)
             {
-                fileSize = " (" + size.ToString() + " B)";
+                fileLength = OpeningBracket + size + bytes + ClosingBracket;
             }
-            if (size >= (long)Bytes.KB && size < (long)Bytes.MB)
+            string Round(FileSize bytes) => Math.Round(length / (double)bytes, 2).ToString();
+            if (length < (long)FileSize.KB)
             {
-                fileSize = " (" + Math.Round(size / (double)Bytes.KB, 2).ToString() + " Kb)";
+                GetLength(length.ToString(), Bytes);
             }
-            if (size >= (long)Bytes.MB && size < (long)Bytes.GB)
+            if (length >= (long)FileSize.KB && length < (long)FileSize.MB)
             {
-                fileSize = " (" + Math.Round(size / (double)Bytes.MB, 2).ToString() + " Mb)";
+                GetLength(Round(FileSize.KB), KiloBytes);
             }
-            if (size >= (long)Bytes.GB)
+            if (length >= (long)FileSize.MB && length < (long)FileSize.GB)
             {
-                fileSize = " (" + Math.Round(size / (double)Bytes.GB, 2).ToString() + " Gb)";
+                GetLength(Round(FileSize.MB), MegaBytes);
             }
-            return fileSize;
+            if (length >= (long)FileSize.GB)
+            {
+                GetLength(Round(FileSize.GB), GigaBytes);
+            }
+            return fileLength;
         }
     }
 }
