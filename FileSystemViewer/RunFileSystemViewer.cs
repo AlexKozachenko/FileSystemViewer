@@ -4,17 +4,17 @@ using System.IO;
 
 namespace FileSystemViewer
 {
-    internal class FileSystemViewerRun
+    internal class RunFileSystemViewer
     {
         ProgramLogic fileViewer = new ProgramLogic();
         KeyAssign keys;
-        public FileSystemViewerRun()
+        public RunFileSystemViewer()
         {
-            Console.Title = "FileSystemViever";
+            Console.Title = "FileSystemViewer";
             Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
             Console.CursorVisible = false;
             keys = new KeyAssign(fileViewer);
-            fileViewer.Open();
+            fileViewer.Expand();
             ++fileViewer.SelectionPosition;
         }
         public void Run()

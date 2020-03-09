@@ -12,14 +12,12 @@ namespace FileSystemViewer.Components
 
         protected static IList<DriveComponent> Children { get; } = new List<DriveComponent>();
 
-        protected static bool ChildrenIsNotEmpty => Children.Count > 0;
-
         public abstract ConsoleColor Color { get; }
 
         protected string FullPath { get; set; }
 
-        protected virtual bool IsEmpty { get; set; }
-
+        protected bool IsEmpty { get; set; } 
+    
         public bool IsOpen { get; protected set; }
 
         public string Name { get; protected set; }
@@ -46,7 +44,7 @@ namespace FileSystemViewer.Components
             if (!IsOpen && !IsEmpty)
             {
                 GetChildren();
-                if (ChildrenIsNotEmpty)
+                if (Children.Count > 0)
                 {
                     int nextPosition = position + 1;
                     components.InsertRange(nextPosition, Children);

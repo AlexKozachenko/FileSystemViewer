@@ -59,12 +59,12 @@ namespace FileSystemViewer
             }
         }
 
-        public void Close()
+        public void Collapse()
         {
             Current.CloseComponent(componentsUnderTop, SelectionPosition);
         }
 
-        public void Open()
+        public void Expand()
         {
             Current.OpenComponent(componentsUnderTop, SelectionPosition);
             //автосмещение на 1 строку вниз, если открывается папка на последней строке

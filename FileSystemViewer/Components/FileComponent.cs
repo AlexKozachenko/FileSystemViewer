@@ -14,13 +14,9 @@ namespace FileSystemViewer.Components
 
         private const string FilePrefix = "  ";
 
-        public FileComponent(string fullPath, string parentPrefix) : base(fullPath, parentPrefix)
-        {
-        }
+        public FileComponent(string fullPath, string parentPrefix) : base(fullPath, parentPrefix) => IsEmpty = true;
 
         public override ConsoleColor Color => ConsoleColor.Cyan;
-
-        protected override bool IsEmpty => true;
 
         public override string Prefix { get; protected set; } = FilePrefix;
 

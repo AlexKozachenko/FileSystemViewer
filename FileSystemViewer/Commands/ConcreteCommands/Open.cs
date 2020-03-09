@@ -8,7 +8,7 @@
 
         public override void Execute()
         {
-            FileViewer.Open();
+            FileViewer.Expand();
         }
     }
 }

@@ -57,7 +57,7 @@
     <Compile Include="Components\FolderComponent.cs" />
     <Compile Include="Components\RootComponent.cs" />
     <Compile Include="MainFileSystemViever.cs" />
-    <Compile Include="FileSystemViewerRun.cs" />
+    <Compile Include="RunFileSystemViewer.cs" />
     <Compile Include="Draft\ProgramLogic%28Procedure Edit%29.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

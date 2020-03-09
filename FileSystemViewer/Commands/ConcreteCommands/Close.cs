@@ -8,7 +8,7 @@
 
         public override void Execute()
         {
-            FileViewer.Close();
+            FileViewer.Collapse();
         }
     }
 }

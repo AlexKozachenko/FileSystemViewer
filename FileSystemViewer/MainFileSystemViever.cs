@@ -4,7 +4,7 @@
     {
         public static void Main()
         {
-            FileSystemViewerRun viewer = new FileSystemViewerRun();
+            RunFileSystemViewer viewer = new RunFileSystemViewer();
             viewer.Run();
         }
     }
