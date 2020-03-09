@@ -17,6 +17,7 @@ namespace FileSystemViewer
             fileViewer.Expand();
             ++fileViewer.SelectionPosition;
         }
+
         public void Run()
         {
             try
