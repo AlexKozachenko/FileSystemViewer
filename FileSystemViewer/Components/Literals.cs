@@ -1,6 +1,6 @@
 ﻿namespace FileSystemViewer.Components
 {
-    internal class Literals
+    internal static class Literals
     {
         public const char BackSlash = '\\';
         public const string Bytes = " B";
