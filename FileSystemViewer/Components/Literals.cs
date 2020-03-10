@@ -9,10 +9,10 @@
         public const char ConnectingPart_I = (char)0x2502;
         public const char ConnectingPart_L = (char)0x2514;
         public const char ConnectingPart_T = (char)0x251C;
+        public const string DefaultFilePrefix = "  ";
         public const int DriveDepth = 1;
         public const string Ellipsis = "...";
         public const string EmptyString = "";
-        public const string DefaultFilePrefix = "  ";
         public const string GigaBytes = " Gb";
         public const string KiloBytes = " Kb";
         public const string MegaBytes = " Mb";
