@@ -12,7 +12,7 @@
         public const int DriveDepth = 1;
         public const string Ellipsis = "...";
         public const string EmptyString = "";
-        public const string FilePrefix = "  ";
+        public const string DefaultFilePrefix = "  ";
         public const string GigaBytes = " Gb";
         public const string KiloBytes = " Kb";
         public const string MegaBytes = " Mb";

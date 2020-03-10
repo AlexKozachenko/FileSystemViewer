@@ -6,7 +6,7 @@ namespace FileSystemViewer.Components
 {
     internal class FileComponent : FolderComponent
     {
-        private enum FileSize : long
+        private enum DataUnit : long
         {
             KB = 1024,
             MB = 1024 * 1024,
@@ -17,7 +17,7 @@ namespace FileSystemViewer.Components
 
         public override ConsoleColor Color => ConsoleColor.Cyan;
 
-        public override string Prefix { get; protected set; } = FilePrefix;
+        public override string Prefix { get; protected set; } = DefaultFilePrefix;
 
         protected override void CutName()
         {
@@ -37,26 +37,23 @@ namespace FileSystemViewer.Components
         {
             string fileLength = EmptyString;
             long length = new FileInfo(FullPath).Length;
-            void GetLength(string size, string bytes)
-            {
-                fileLength = OpeningBracket + size + bytes + ClosingBracket;
-            }
-            string Round(FileSize bytes) => Math.Round(length / (double)bytes, 2).ToString();
-            if (length < (long)FileSize.KB)
+            void GetLength(string size, string bytes) => fileLength = OpeningBracket + size + bytes + ClosingBracket;
+            string Round(DataUnit bytes) => Math.Round(length / (double)bytes, 2).ToString();
+            if (length < (long)DataUnit.KB)
             {
                 GetLength(length.ToString(), Bytes);
             }
-            if (length >= (long)FileSize.KB && length < (long)FileSize.MB)
+            if (length >= (long)DataUnit.KB && length < (long)DataUnit.MB)
             {
-                GetLength(Round(FileSize.KB), KiloBytes);
+                GetLength(Round(DataUnit.KB), KiloBytes);
             }
-            if (length >= (long)FileSize.MB && length < (long)FileSize.GB)
+            if (length >= (long)DataUnit.MB && length < (long)DataUnit.GB)
             {
-                GetLength(Round(FileSize.MB), MegaBytes);
+                GetLength(Round(DataUnit.MB), MegaBytes);
             }
-            if (length >= (long)FileSize.GB)
+            if (length >= (long)DataUnit.GB)
             {
-                GetLength(Round(FileSize.GB), GigaBytes);
+                GetLength(Round(DataUnit.GB), GigaBytes);
             }
             return fileLength;
         }
